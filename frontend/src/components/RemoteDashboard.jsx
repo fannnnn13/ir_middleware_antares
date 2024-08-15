@@ -1,7 +1,27 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import LogoRemote from '../img/remote.png'
 
 const RemoteDashboard = () => {
+    const [remotes, setRemotes] = useState([]);
+    const [search, setSearch] = useState('');
+    
+    useEffect(() => {
+        getRemotes();
+    }, []);
+
+    const getRemotes = async () => {
+        const response = await axios.get("http://localhost:5000/remotes");
+        setRemotes(response.data);
+    }
+
+    const truncateText = (text, maxLength = 12) => {
+        if (text.length > maxLength) {
+            return text.slice(0, maxLength) + '...';
+        }
+        return text;
+    };
+
     return (
         <div className="container">
             <header className="grid grid-cols-2 items-center py-12">
@@ -30,20 +50,34 @@ const RemoteDashboard = () => {
                             id="default-search"
                             class="block w-full px-4 py-2 ps-10 text-sm text-black border border-gray-300 rounded-md bg-white focus:outline-none focus:border-orange-500 focus:border-2"
                             placeholder="Search"
+                            onChange={(e) => setSearch(e.target.value.toLowerCase())}
                             required
                         />
                     </div>
                 </form>
             </header>
+            {remotes.length > 0 ? (
             <div className="grid grid-cols-4 gap-4">
-                <div className=' p-5 content-between grid grid-cols-2 border border-black rounded-md'>
-                    <img src={LogoRemote} alt="Logo Remote" className="w-11"/>
-                    <div className="container">
-                        <h3 className="text-lg">IR Remote 1</h3>
-                        <p className="text-xs">Serial Number</p>
+                {remotes.filter((remote) => {
+                    return search.toLowerCase() === '' || remote.serial_number.toLowerCase().includes(search) || remote.device_name.toLowerCase().includes(search);
+                }).map((remote) => (
+                    <div className=' p-5 content-between grid grid-cols-3 border border-black rounded-md' key={remote.id}>
+                        <img src={LogoRemote} alt="Logo Remote" className="w-11"/>
+                        <div className="container col-span-2">
+                            <h3 className="text-lg font-semibold text-end mb-1">{truncateText(remote.device_name)}</h3>
+                            <p className="text-xs text-end">{remote.serial_number}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            ) : (
+                <div className='container grid grid-rows-1 text-center h-screen'>
+                    <div className="my-auto">
+                        <h3 className='text-3xl font-semibold'>Tidak ada Device IR Remote</h3>
+                        <p className='text-md font-medium'><span className='text-orange-400'>Registrasi Device IR Remote</span> di Device Manager</p>
                     </div>
                 </div>
-            </div>
+            )}
         </div>
     )
 }

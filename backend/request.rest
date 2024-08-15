@@ -122,21 +122,21 @@ POST http://localhost:5000/remotes
 Content-Type: application/json
 
 {
-    "device_name": "IR Meeting Room 1",
-    "serial_number": "123456"
+    "device_name": "Meeting Room Komatsu 3",
+    "serial_number": "SN1ASD12SAHD8"
 }
 
 ###
-PATCH http://localhost:5000/remotes/16a10452-40c0-428e-9aa0-6eeb3dc9e9ac
+PATCH http://localhost:5000/remotes/d017d595-c7a7-45be-9844-edc2bcc6a4d4
+
 Content-Type: application/json
 
 {
-    "device_name": "IR Meeting Room 2"
+    "device_name": "Meeting Room Komatsu 2"
 }
 
 ###
-DELETE http://localhost:5000/remotes/16a10452-40c0-428e-9aa0-6eeb3dc9e9ac
-
+DELETE http://localhost:5000/remotes/d017d595-c7a7-45be-9844-edc2bcc6a4d4
 #------------------
 # List IR
 

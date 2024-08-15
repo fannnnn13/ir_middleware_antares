@@ -11,11 +11,11 @@ import { verifyUser } from "../middleware/authUser.js";
 
 const router = express.Router();
 
-router.get("/remotes", verifyUser, getRemotes);
-router.get("/remotes/:id", verifyUser, getRemoteById);
-router.post("/remotes", verifyUser, createRemote);
-router.patch("/remotes/:id", verifyUser, updateRemote);
-router.delete("/remotes/:id", verifyUser, deleteRemote);
-router.get("/remotesearch", verifyUser, searchRemotes);
+router.get("/remotes", getRemotes);
+router.get("/remotes/:id", getRemoteById);
+router.post("/remotes", createRemote);
+router.patch("/remotes/:id", updateRemote);
+router.delete("/remotes/:id", deleteRemote);
+router.get("/remotesearch", searchRemotes);
 
 export default router;
