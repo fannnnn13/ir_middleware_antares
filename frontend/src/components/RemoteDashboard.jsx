@@ -27,10 +27,10 @@ const RemoteDashboard = () => {
             <header className="grid grid-cols-2 items-center py-12">
                 <h1 className="text-3xl font-bold">Dashboard</h1>
                 <form className="grid justify-end">
-                    <label htmlFor="search" className='text-sm font medium text-black sr-only'>Search</label>
+                    <label htmlFor="search" className='text-sm font-medium text-black sr-only'>Search</label>
                     <div className="relative">
                     <div
-                            class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+                            className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +61,7 @@ const RemoteDashboard = () => {
                 {remotes.filter((remote) => {
                     return search.toLowerCase() === '' || remote.serial_number.toLowerCase().includes(search) || remote.device_name.toLowerCase().includes(search);
                 }).map((remote) => (
-                    <div className=' p-5 content-between grid grid-cols-3 border border-black rounded-md' key={remote.id}>
+                    <div className=' p-6 content-between grid grid-cols-3 border border-black rounded-md hover:shadow-myBox hover:duration-500' key={remote.id}>
                         <img src={LogoRemote} alt="Logo Remote" className="w-11"/>
                         <div className="container col-span-2">
                             <h3 className="text-lg font-semibold text-end mb-1">{truncateText(remote.device_name)}</h3>
@@ -71,7 +71,7 @@ const RemoteDashboard = () => {
                 ))}
             </div>
             ) : (
-                <div className='container grid grid-rows-1 text-center h-screen'>
+                <div className='container grid grid-rows-1 text-center h-full my-60'>
                     <div className="my-auto">
                         <h3 className='text-3xl font-semibold'>Tidak ada Device IR Remote</h3>
                         <p className='text-md font-medium'><span className='text-orange-400'>Registrasi Device IR Remote</span> di Device Manager</p>

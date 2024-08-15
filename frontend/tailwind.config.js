@@ -12,6 +12,12 @@ module.exports = {
             borderWidth: {
                 14: "14px",
             },
+            boxShadow: {
+                myBox: "4px 4px 0px 0px rgb(0,0,0,1)",
+            },
+            transitionDuration: {
+                500: "500ms",
+            },
         },
     },
     plugins: [],

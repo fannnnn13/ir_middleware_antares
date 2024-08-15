@@ -122,8 +122,8 @@ POST http://localhost:5000/remotes
 Content-Type: application/json
 
 {
-    "device_name": "Meeting Room Komatsu 3",
-    "serial_number": "SN1ASD12SAHD8"
+    "device_name": "Monitoring Room Komatsu 2",
+    "serial_number": "SN2112NSA9D"
 }
 
 ###
@@ -137,6 +137,9 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:5000/remotes/d017d595-c7a7-45be-9844-edc2bcc6a4d4
+
+###
+GET http://localhost:5000/remotesearch
 #------------------
 # List IR
 
@@ -151,9 +154,9 @@ POST http://localhost:5000/irlist
 Content-Type: application/json
 
 {
-    "brand_id": 4,
-    "variant_id": 5,
-    "device_id": 1
+    "brand_id": 5,
+    "variant_id": 7,
+    "device_id": 12
 }
 
 ###
@@ -174,7 +177,7 @@ POST http://localhost:5000/variants
 Content-Type: application/json
 
 {
-    "brand_id": 4,
+    "brand_id": 5,
     "variant_name": "AC Gree 1 PK",
     "raw_data1": "uint16_t rawData[73] = {4704, 4770,  638, 1634,  614, 1618,  614, 1620,  616, 486,  614, 486,  616, 486,  614, 486,  614, 486,  614, 1620,  614, 1618,  614, 1620,  616, 486,  614, 486,  614, 486,  614, 486,  614, 486,  614, 486,  614, 1620,  616, 486,  614, 486,  616, 486,  614, 486,  614, 486,  614, 488,  614, 1620,  614, 486,  614, 1620,  614, 1618,  614, 1620,  614, 1618,  614, 1620,  614, 1618,  614, 48538,  4654, 4522,  616, 488,  614};",
     "raw_data2": "uint16_t rawData[73] = {4704, 4770,  638, 1634,  614, 1618,  614, 1620,  616, 486,  614, 486,  616, 486,  614, 486,  614, 486,  614, 1620,  614, 1618,  614, 1620,  616, 486,  614, 486,  614, 486,  614, 486,  614, 486,  614, 486,  614, 1620,  616, 486,  614, 486,  616, 486,  614, 486,  614, 486,  614, 488,  614, 1620,  614, 486,  614, 1620,  614, 1618,  614, 1620,  614, 1618,  614, 1620,  614, 1618,  614, 48538,  4654, 4522,  616, 488,  614};"

@@ -13,11 +13,16 @@ export const getIRList = async (req, res) => {
                 },
                 {
                     model: VariantIR,
-                    attributes: ["uuid", "variant_name"],
+                    attributes: [
+                        "uuid",
+                        "variant_name",
+                        "raw_data1",
+                        "raw_data2",
+                    ],
                 },
                 {
                     model: Remote,
-                    attributes: ["uuid", "device_name"],
+                    attributes: ["uuid", "device_name", "serial_number"],
                 },
             ],
         });
