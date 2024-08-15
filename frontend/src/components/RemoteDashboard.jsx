@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import LogoRemote from '../img/remote.png'
+import { Link } from 'react-router-dom'
 
 const RemoteDashboard = () => {
     const [remotes, setRemotes] = useState([]);
@@ -61,13 +62,15 @@ const RemoteDashboard = () => {
                 {remotes.filter((remote) => {
                     return search.toLowerCase() === '' || remote.serial_number.toLowerCase().includes(search) || remote.device_name.toLowerCase().includes(search);
                 }).map((remote) => (
-                    <div className=' p-6 content-between grid grid-cols-3 border border-black rounded-md hover:shadow-myBox hover:duration-500' key={remote.id}>
-                        <img src={LogoRemote} alt="Logo Remote" className="w-11"/>
-                        <div className="container col-span-2">
-                            <h3 className="text-lg font-semibold text-end mb-1">{truncateText(remote.device_name)}</h3>
-                            <p className="text-xs text-end">{remote.serial_number}</p>
+                    <Link to={`/details-device/${remote.uuid}`} key={remote.id} className='block'>
+                        <div className=' p-6 content-between grid grid-cols-3 border border-black rounded-md hover:shadow-myBox hover:duration-500'>
+                            <img src={LogoRemote} alt="Logo Remote" className="w-11"/>
+                            <div className="container col-span-2">
+                                <h3 className="text-lg font-semibold text-end mb-1">{truncateText(remote.device_name)}</h3>
+                                <p className="text-xs text-end">{remote.serial_number}</p>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                 ))}
             </div>
             ) : (

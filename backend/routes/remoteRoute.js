@@ -7,7 +7,7 @@ import {
     deleteRemote,
     searchRemotes,
 } from "../controllers/remoteController.js";
-import { verifyUser } from "../middleware/authUser.js";
+// import { verifyUser } from "../middleware/authUser.js";
 
 const router = express.Router();
 

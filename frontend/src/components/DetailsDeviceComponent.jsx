@@ -3,8 +3,10 @@ import axios from 'axios'
 import LogoRemote from '../img/remote.png'
 import Power from '../img/Push Button.png'
 import Device from '../img/Device.png'
+import { useParams } from 'react-router-dom'
 
 const DetailsDeviceComponent = () => {
+    const { uuid } = useParams();
     const [irlists, setIrlists ] = useState([]);
     const [search, setSearch] = useState('');
 
@@ -13,16 +15,36 @@ const DetailsDeviceComponent = () => {
 
     useEffect(() => {
         getIrList();
-    })
+    });
 
-    const getIrList = async () => {
-        const response = await axios.get("http://localhost:5000/irlist");
-        if (response.data.length > 0) {
-            const firstRemote = response.data[0].ir_remote;
-            setDeviceName(firstRemote.device_name);
-            setSerialNumber(firstRemote.serial_number);
+    async function getIrList() {
+        // const response = await axios.get("http://localhost:5000/irlist/:id")
+        // if (response.data.length > 0) {
+        //     const firstRemote = response.data[0].ir_remote
+        //     setDeviceName(firstRemote.device_name)
+        //     setSerialNumber(firstRemote.serial_number)
+        // }
+        // setIrlists(response.data)
+        // console.log(response.data);
+        try {
+            const response = await axios.get(`http://localhost:5000/irlist/${uuid}`);
+    
+            // Check if response data is not null or undefined
+            if (response.data && response.data.length >= 0) {
+                const firstRemote = response.data[0].ir_remote;
+                if (firstRemote) {
+                    setDeviceName(firstRemote.device_name || "Unknown Device");
+                    setSerialNumber(firstRemote.serial_number || "Unknown Serial Number");
+                }
+                setIrlists(response.data);
+                console.log(response.data);
+            } else {
+                setIrlists([]); // Set an empty list if no data is returned
+            }
+        } catch (error) {
+            console.error("Error fetching IR list:", error);
+            setIrlists([]); // Set an empty list in case of an error
         }
-        setIrlists(response.data);
     }
 
     return (

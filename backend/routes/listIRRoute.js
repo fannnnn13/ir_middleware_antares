@@ -10,8 +10,8 @@ import {
 const router = express.Router();
 
 router.get("/irlist", getIRList);
-router.get("/irlist/:id", getIRListByDeviceId);
+router.get("/irlist/:uuid", getIRListByDeviceId);
 router.post("/irlist", addIRList);
-router.delete("/irlist/:id", deleteIRList);
+router.delete("/irlist/:uuid", deleteIRList);
 
 export default router;

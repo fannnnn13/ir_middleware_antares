@@ -8,7 +8,10 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/details-device" element={<DetailsDevice />} />
+                    <Route
+                        path="/details-device/:uuid"
+                        element={<DetailsDevice />}
+                    />
                 </Routes>
             </BrowserRouter>
         </div>
