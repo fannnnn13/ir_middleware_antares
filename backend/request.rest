@@ -1,0 +1,197 @@
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "full_name": "John Wang",
+    "username": "Johnwang13",
+    "password": "123456",
+    "conf_password": "123456"
+}
+
+###
+GET http://localhost:5000/users
+
+###
+GET http://localhost:5000/users/f547d79a-47bd-4b30-8a00-4604a11e0aa9
+
+
+# Kalo mau ganti password isi semua data yang ada
+###
+PATCH http://localhost:5000/users/ba38efbd-0f9e-4c98-b2b6-2c87bbb84a19
+Content-Type: application/json
+
+{
+    "full_name": "John Doe",
+    "username": "JohnDoe13",
+    "password": "123456",
+    "conf_password": "123456"
+}
+
+###
+DELETE http://localhost:5000/users/ba38efbd-0f9e-4c98-b2b6-2c87bbb84a19
+
+###
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "username": "Johnwang13",
+    "password": "123456"
+}
+
+###
+GET http://localhost:5000/me
+
+###
+DELETE http://localhost:5000/logout
+
+#------------------
+# Brands
+
+###
+GET http://localhost:5000/brands
+
+###
+GET http://localhost:5000/brands/2be71346-0b48-45b5-8d70-752645e2a525
+
+###
+POST http://localhost:5000/brands
+Content-Type: application/json
+
+{
+    "brand_name": "Gree"
+}
+
+###
+PATCH http://localhost:5000/brands/2be71346-0b48-45b5-8d70-752645e2a525
+Content-Type: application/json
+
+{
+    "brand_name": "Panasonic"
+}
+
+###
+DELETE http://localhost:5000/brands/ca5adbe5-ba80-46b2-9752-09718e68d82a
+
+#------------------
+# Integration
+
+###
+GET http://localhost:5000/integrations
+
+###
+GET http://localhost:5000/integrations/3e3f3e7d-e943-42b4-b6dc-c74d2084c297
+
+###
+POST http://localhost:5000/integrations
+Content-Type: application/json
+
+{
+    "integration_name": "Gree",
+    "access_key": "123456",
+    "antares_app_name": "ir-app-1",
+    "antares_device_name": "ir-device-1",
+    "device_id": 1
+}
+
+###
+PATCH http://localhost:5000/integrations/1b3b3b3b-1b3b-1b3b-1b3b-1b3b3b3b3b3b
+Content-Type: application/json
+
+{
+    "integration_name": "Gree",
+    "access_key": "123456",
+    "antares_app_name": "ir-app-1",
+    "antares_device_name": "ir-device-1",
+}
+
+###
+DELETE http://localhost:5000/integrations/1b3b3b3b-1b3b-1b3b-1b3b-1b3b3b3b3b3b
+
+#------------------
+# Remote
+
+###
+GET http://localhost:5000/remotes
+
+###
+GET http://localhost:5000/remotes/16a10452-40c0-428e-9aa0-6eeb3dc9e9ac
+
+###
+POST http://localhost:5000/remotes
+Content-Type: application/json
+
+{
+    "device_name": "IR Meeting Room 1",
+    "serial_number": "123456"
+}
+
+###
+PATCH http://localhost:5000/remotes/16a10452-40c0-428e-9aa0-6eeb3dc9e9ac
+Content-Type: application/json
+
+{
+    "device_name": "IR Meeting Room 2"
+}
+
+###
+DELETE http://localhost:5000/remotes/16a10452-40c0-428e-9aa0-6eeb3dc9e9ac
+
+#------------------
+# List IR
+
+###
+GET http://localhost:5000/irlist
+
+###
+GET http://localhost:5000/irlist/af129261-26de-40c3-8ac9-ae4f0ac60256
+
+###
+POST http://localhost:5000/irlist
+Content-Type: application/json
+
+{
+    "brand_id": 4,
+    "variant_id": 5,
+    "device_id": 1
+}
+
+###
+DELETE http://localhost:5000/irlist/1
+
+
+#------------------
+# Variant
+
+###
+GET http://localhost:5000/variants
+
+###
+GET http://localhost:5000/variants/1
+
+###
+POST http://localhost:5000/variants
+Content-Type: application/json
+
+{
+    "brand_id": 4,
+    "variant_name": "AC Gree 1 PK",
+    "raw_data1": "uint16_t rawData[73] = {4704, 4770,  638, 1634,  614, 1618,  614, 1620,  616, 486,  614, 486,  616, 486,  614, 486,  614, 486,  614, 1620,  614, 1618,  614, 1620,  616, 486,  614, 486,  614, 486,  614, 486,  614, 486,  614, 486,  614, 1620,  616, 486,  614, 486,  616, 486,  614, 486,  614, 486,  614, 488,  614, 1620,  614, 486,  614, 1620,  614, 1618,  614, 1620,  614, 1618,  614, 1620,  614, 1618,  614, 48538,  4654, 4522,  616, 488,  614};",
+    "raw_data2": "uint16_t rawData[73] = {4704, 4770,  638, 1634,  614, 1618,  614, 1620,  616, 486,  614, 486,  616, 486,  614, 486,  614, 486,  614, 1620,  614, 1618,  614, 1620,  616, 486,  614, 486,  614, 486,  614, 486,  614, 486,  614, 486,  614, 1620,  616, 486,  614, 486,  616, 486,  614, 486,  614, 486,  614, 488,  614, 1620,  614, 486,  614, 1620,  614, 1618,  614, 1620,  614, 1618,  614, 1620,  614, 1618,  614, 48538,  4654, 4522,  616, 488,  614};"
+
+}
+
+###
+PATCH http://localhost:5000/variants/e855864c-98b3-45cb-837b-e934a3ce0dd5
+Content-Type: application/json
+
+{
+    "brand_id": 4,
+    "variant_name": "AC Gree 2 PK",
+    "raw_data1": "uint16_t rawData[71] = {9108, 4502,  606, 516,  606, 482,  608, 482,  608, 480,  608, 482,  634, 1576,  606, 482,  606, 482,  608, 1602,  608, 1602,  582, 1626,  608, 1602,  608, 1602,  608, 480,  608, 1602,  608, 1604,  608, 482,  632, 1576,  584, 506,  608, 480,  608, 1602,  608, 482,  608, 482,  608, 482,  608, 1602,  608, 482,  608, 1602,  608, 1602,  608, 480,  610, 1600,  608, 1602,  632, 1578,  608, 41302,  9162, 2194,  610};"
+}
+
+###
+DELETE http://localhost:5000/variants/e855864c-98b3-45cb-837b-e934a3ce0dd5
+
+
