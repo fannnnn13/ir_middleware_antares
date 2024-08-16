@@ -12,10 +12,10 @@ import {
 const router = express.Router();
 
 router.get("/remotes", getRemotes);
-router.get("/remotes/:id", getRemoteById);
+router.get("/remotes/:uuid", getRemoteById);
 router.post("/remotes", createRemote);
-router.patch("/remotes/:id", updateRemote);
-router.delete("/remotes/:id", deleteRemote);
+router.patch("/remotes/:uuid", updateRemote);
+router.delete("/remotes/:uuid", deleteRemote);
 router.get("/remotesearch", searchRemotes);
 
 export default router;

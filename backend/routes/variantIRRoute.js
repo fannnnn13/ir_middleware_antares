@@ -11,9 +11,9 @@ import { verifyUser } from "../middleware/authUser.js";
 const router = express.Router();
 
 router.get("/variants", verifyUser, getVariants);
-router.get("/variants/:id", verifyUser, getVariantById);
+router.get("/variants/:uuid", verifyUser, getVariantById);
 router.post("/variants", verifyUser, createVariant);
-router.patch("/variants/:id", verifyUser, updateVariant);
-router.delete("/variants/:id", verifyUser, deleteVariant);
+router.patch("/variants/:uuid", verifyUser, updateVariant);
+router.delete("/variants/:uuid", verifyUser, deleteVariant);
 
 export default router;

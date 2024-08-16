@@ -14,7 +14,7 @@ export const getBrandById = async (req, res) => {
     try {
         const response = await Brands.findOne({
             where: {
-                uuid: req.params.id,
+                uuid: req.params.uuid,
             },
         });
         res.status(200).json(response);
@@ -36,7 +36,7 @@ export const updateBrand = async (req, res) => {
     try {
         const brand = await Brands.findOne({
             where: {
-                uuid: req.params.id,
+                uuid: req.params.uuid,
             },
         });
 
@@ -44,7 +44,7 @@ export const updateBrand = async (req, res) => {
 
         await Brands.update(req.body, {
             where: {
-                uuid: req.params.id,
+                uuid: req.params.uuid,
             },
         });
         res.status(200).json({ message: "Brand updated successfully" });
@@ -57,7 +57,7 @@ export const deleteBrand = async (req, res) => {
     try {
         await Brands.destroy({
             where: {
-                uuid: req.params.id,
+                uuid: req.params.uuid,
             },
         });
         res.status(200).json({ message: "Brand deleted successfully" });

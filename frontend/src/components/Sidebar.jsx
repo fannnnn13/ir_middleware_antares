@@ -114,7 +114,7 @@ const Sidebar = () => {
                                 >
                                     <Link
                                         to="/account"
-                                        className="text-orange-500 flex items-center justify-between mx-7 hover:text-white"
+                                        className="text-orange-500 flex items-center justify-between mx-7"
                                     >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"

@@ -7,15 +7,15 @@ import {
     deleteBrand,
     searchBrands,
 } from "../controllers/brandController.js";
-import { verifyUser } from "../middleware/authUser.js";
+// import { verifyUser } from "../middleware/authUser.js";
 
 const router = express.Router();
 
-router.get("/brands", verifyUser, getBrands);
-router.get("/brands/:id", verifyUser, getBrandById);
-router.post("/brands", verifyUser, createBrand);
-router.patch("/brands/:id", verifyUser, updateBrand);
-router.delete("/brands/:id", verifyUser, deleteBrand);
-router.get("/searchbrands", verifyUser, searchBrands);
+router.get("/brands", getBrands);
+router.get("/brands/:uuid", getBrandById);
+router.post("/brands", createBrand);
+router.patch("/brands/:uuid", updateBrand);
+router.delete("/brands/:uuid", deleteBrand);
+router.get("/searchbrands", searchBrands);
 
 export default router;

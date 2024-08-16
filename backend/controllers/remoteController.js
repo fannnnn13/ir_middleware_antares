@@ -16,7 +16,7 @@ export const getRemoteById = async (req, res) => {
     try {
         const response = await Remote.findOne({
             where: {
-                uuid: req.params.id,
+                uuid: req.params.uuid,
             },
             attributes: ["uuid", "device_name", "serial_number"],
         });
@@ -39,7 +39,7 @@ export const updateRemote = async (req, res) => {
     try {
         const remote = await Remote.findOne({
             where: {
-                uuid: req.params.id,
+                uuid: req.params.uuid,
             },
         });
 
@@ -48,7 +48,7 @@ export const updateRemote = async (req, res) => {
 
         await Remote.update(req.body, {
             where: {
-                uuid: req.params.id,
+                uuid: req.params.uuid,
             },
         });
         res.status(200).json({ message: "Remote updated successfully" });
@@ -61,7 +61,7 @@ export const deleteRemote = async (req, res) => {
     try {
         await Remote.destroy({
             where: {
-                uuid: req.params.id,
+                uuid: req.params.uuid,
             },
         });
         res.status(200).json({ message: "Remote deleted successfully" });

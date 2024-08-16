@@ -12,10 +12,10 @@ import { verifyUser } from "../middleware/authUser.js";
 const router = express.Router();
 
 router.get("/integrations", verifyUser, getIntegrations);
-router.get("/integrations/:id", verifyUser, getIntegrationById);
+router.get("/integrations/:uuid", verifyUser, getIntegrationById);
 router.post("/integrations", verifyUser, createIntegration);
-router.patch("/integrations/:id", verifyUser, updateIntegration);
-router.delete("/integrations/:id", verifyUser, deleteIntegration);
+router.patch("/integrations/:uuid", verifyUser, updateIntegration);
+router.delete("/integrations/:uuid", verifyUser, deleteIntegration);
 router.get("/searchintegrations", verifyUser, searchIntegrations);
 
 export default router;

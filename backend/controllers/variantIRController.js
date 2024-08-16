@@ -21,7 +21,7 @@ export const getVariantById = async (req, res) => {
     try {
         const response = await VariantIR.findOne({
             where: {
-                uuid: req.params.id,
+                uuid: req.params.uuid,
             },
         });
         res.status(200).json(response);
@@ -43,7 +43,7 @@ export const updateVariant = async (req, res) => {
     try {
         const variant = await VariantIR.findOne({
             where: {
-                uuid: req.params.id,
+                uuid: req.params.uuid,
             },
         });
 
@@ -52,7 +52,7 @@ export const updateVariant = async (req, res) => {
 
         await VariantIR.update(req.body, {
             where: {
-                uuid: req.params.id,
+                uuid: req.params.uuid,
             },
         });
         res.status(200).json({ message: "Variant updated successfully" });
@@ -65,7 +65,7 @@ export const deleteVariant = async (req, res) => {
     try {
         await VariantIR.destroy({
             where: {
-                uuid: req.params.id,
+                uuid: req.params.uuid,
             },
         });
         res.status(200).json({ message: "Variant deleted successfully" });

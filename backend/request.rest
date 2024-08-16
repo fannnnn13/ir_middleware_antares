@@ -123,7 +123,7 @@ Content-Type: application/json
 
 {
     "device_name": "Monitoring Room Komatsu 2",
-    "serial_number": "SN2112NSA9D"
+    "serial_number": "SN212219SAB8SA"
 }
 
 ###
@@ -137,6 +137,9 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:5000/remotes/d017d595-c7a7-45be-9844-edc2bcc6a4d4
+
+###
+GET http://localhost:5000/details/617122d9-ef36-47ad-946b-8b5898ca4c3e
 
 ###
 GET http://localhost:5000/remotesearch
@@ -154,13 +157,18 @@ POST http://localhost:5000/irlist
 Content-Type: application/json
 
 {
-    "brand_id": 5,
-    "variant_id": 7,
-    "device_id": 12
+    "brand_id": 1,
+    "variant_id": 3,
+    "device_id": 3
 }
 
 ###
 DELETE http://localhost:5000/irlist/1
+
+###
+GET http://localhost:5000/irlist/925aeac6-784c-4440-a5f9-8de257f4e90f
+
+
 
 
 #------------------
@@ -177,8 +185,8 @@ POST http://localhost:5000/variants
 Content-Type: application/json
 
 {
-    "brand_id": 5,
-    "variant_name": "AC Gree 1 PK",
+    "brand_id": 1,
+    "variant_name": "AC Gree OFF",
     "raw_data1": "uint16_t rawData[73] = {4704, 4770,  638, 1634,  614, 1618,  614, 1620,  616, 486,  614, 486,  616, 486,  614, 486,  614, 486,  614, 1620,  614, 1618,  614, 1620,  616, 486,  614, 486,  614, 486,  614, 486,  614, 486,  614, 486,  614, 1620,  616, 486,  614, 486,  616, 486,  614, 486,  614, 486,  614, 488,  614, 1620,  614, 486,  614, 1620,  614, 1618,  614, 1620,  614, 1618,  614, 1620,  614, 1618,  614, 48538,  4654, 4522,  616, 488,  614};",
     "raw_data2": "uint16_t rawData[73] = {4704, 4770,  638, 1634,  614, 1618,  614, 1620,  616, 486,  614, 486,  616, 486,  614, 486,  614, 486,  614, 1620,  614, 1618,  614, 1620,  616, 486,  614, 486,  614, 486,  614, 486,  614, 486,  614, 486,  614, 1620,  616, 486,  614, 486,  616, 486,  614, 486,  614, 486,  614, 488,  614, 1620,  614, 486,  614, 1620,  614, 1618,  614, 1620,  614, 1618,  614, 1620,  614, 1618,  614, 48538,  4654, 4522,  616, 488,  614};"
 

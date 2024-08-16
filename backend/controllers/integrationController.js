@@ -50,7 +50,7 @@ export const updateIntegration = async (req, res) => {
     try {
         const integration = await Integration.findOne({
             where: {
-                uuid: req.params.id,
+                uuid: req.params.uuid,
             },
         });
 
@@ -59,7 +59,7 @@ export const updateIntegration = async (req, res) => {
 
         await Integration.update(req.body, {
             where: {
-                uuid: req.params.id,
+                uuid: req.params.uuid,
             },
         });
         res.status(200).json({ message: "Integration updated successfully" });
@@ -72,7 +72,7 @@ export const deleteIntegration = async (req, res) => {
     try {
         await Integration.destroy({
             where: {
-                uuid: req.params.id,
+                uuid: req.params.uuid,
             },
         });
         res.status(200).json({ message: "Integration deleted successfully" });
