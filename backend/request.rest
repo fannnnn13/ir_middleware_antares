@@ -59,7 +59,7 @@ POST http://localhost:5000/brands
 Content-Type: application/json
 
 {
-    "brand_name": "Gree"
+    "brand_name": "ACL"
 }
 
 ###
@@ -115,15 +115,15 @@ DELETE http://localhost:5000/integrations/1b3b3b3b-1b3b-1b3b-1b3b-1b3b3b3b3b3b
 GET http://localhost:5000/remotes
 
 ###
-GET http://localhost:5000/remotes/16a10452-40c0-428e-9aa0-6eeb3dc9e9ac
+GET http://localhost:5000/remotes/d87a4d0e-0e24-403c-a176-1c66b027050d
 
 ###
 POST http://localhost:5000/remotes
 Content-Type: application/json
 
 {
-    "device_name": "Monitoring Room Komatsu 2",
-    "serial_number": "SN212219SAB8SA"
+    "device_name": "Collaboration Room Antares",
+    "serial_number": "SN2121212S92J"
 }
 
 ###
@@ -158,8 +158,8 @@ Content-Type: application/json
 
 {
     "brand_id": 1,
-    "variant_id": 3,
-    "device_id": 3
+    "variant_id": 2,
+    "device_id": 2
 }
 
 ###
@@ -186,7 +186,7 @@ Content-Type: application/json
 
 {
     "brand_id": 1,
-    "variant_name": "AC Gree OFF",
+    "variant_name": "AC Gree ON",
     "raw_data1": "uint16_t rawData[73] = {4704, 4770,  638, 1634,  614, 1618,  614, 1620,  616, 486,  614, 486,  616, 486,  614, 486,  614, 486,  614, 1620,  614, 1618,  614, 1620,  616, 486,  614, 486,  614, 486,  614, 486,  614, 486,  614, 486,  614, 1620,  616, 486,  614, 486,  616, 486,  614, 486,  614, 486,  614, 488,  614, 1620,  614, 486,  614, 1620,  614, 1618,  614, 1620,  614, 1618,  614, 1620,  614, 1618,  614, 48538,  4654, 4522,  616, 488,  614};",
     "raw_data2": "uint16_t rawData[73] = {4704, 4770,  638, 1634,  614, 1618,  614, 1620,  616, 486,  614, 486,  616, 486,  614, 486,  614, 486,  614, 1620,  614, 1618,  614, 1620,  616, 486,  614, 486,  614, 486,  614, 486,  614, 486,  614, 486,  614, 1620,  616, 486,  614, 486,  616, 486,  614, 486,  614, 486,  614, 488,  614, 1620,  614, 486,  614, 1620,  614, 1618,  614, 1620,  614, 1618,  614, 1620,  614, 1618,  614, 48538,  4654, 4522,  616, 488,  614};"
 

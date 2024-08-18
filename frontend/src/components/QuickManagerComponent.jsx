@@ -34,10 +34,10 @@ const QuickManagerComponent = () => {
         <div className="container">
             {brands.length > 0 ? (
                 <div className="container">
-                    <header className='grid grid-cols-12 items-center py-12'>
-                        <h1 className='text-3xl font-bold col-span-8'>Quick Match Manager</h1>
-                        <button type='button' className='grid justify-end text-white text-md bg-orange-500 rounded-md font-medium hover:bg-orange-700 p-3 col-start-11 col-end-13'>
-                            <Link to="/add-brand" className='mr-7'>
+                    <header className='flex items-center py-12 content-between'>
+                        <h1 className='flex-1 text-3xl font-bold'>Quick Match Manager</h1>
+                        <button type='button' className= 'text-white text-md bg-orange-500 rounded-md font-medium hover:bg-orange-700 p-3 w-48'>
+                            <Link to="/add-brand" className='text-center'>
                                 Tambah Brand
                             </Link>
                         </button>
@@ -88,14 +88,16 @@ const QuickManagerComponent = () => {
                     </div>
                 </div>
             ) : (
-                <header className='grid grid-cols-12 gap-8 items-center py-12 h-full my-80'>
-                    <h1 className='text-3xl font-bold col-span-6 grid justify-items-end'>Quick Match Manager</h1>
-                    <button type='button' className='grid justify-items-start text-white text-md bg-orange-500 rounded-md font-medium hover:bg-orange-700 p-3 col-start-7 col-end-10 place-content-center mx-5'>
-                        <Link to="/add-brand" className=''>
-                        Tambah Brand
-                        </Link>
-                </button>
-            </header>
+                <div className="container h-screen content-center">
+                    <header className='grid grid-cols-12 gap-8 items-center'>
+                        <h1 className='text-3xl font-bold col-span-6 grid justify-items-end'>Quick Match Manager</h1>
+                        <button type='button' className='grid justify-items-start text-white text-md bg-orange-500 rounded-md font-medium hover:bg-orange-700 p-3 col-start-7 col-end-10 place-content-center mx-5'>
+                            <Link to="/add-brand" className=''>
+                            Tambah Brand
+                            </Link>
+                        </button>
+                    </header>
+                </div>
             )}
         </div>
     )

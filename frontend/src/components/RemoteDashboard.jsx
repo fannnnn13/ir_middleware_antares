@@ -16,17 +16,10 @@ const RemoteDashboard = () => {
         setRemotes(response.data);
     }
 
-    const truncateText = (text, maxLength = 12) => {
-        if (text.length > maxLength) {
-            return text.slice(0, maxLength) + '...';
-        }
-        return text;
-    };
-
     return (
         <div className="container">
-            <header className="grid grid-cols-2 items-center py-12">
-                <h1 className="text-3xl font-bold">Dashboard</h1>
+            <header className="flex items-center py-12 justify-between">
+                <h1 className="flex-1 text-3xl font-bold">Dashboard</h1>
                 <form className="grid justify-end">
                     <label htmlFor="search" className='text-sm font-medium text-black sr-only'>Search</label>
                     <div className="relative">
@@ -66,7 +59,7 @@ const RemoteDashboard = () => {
                         <div className=' p-6 content-between grid grid-cols-3 border border-black rounded-md hover:shadow-myBox hover:duration-500'>
                             <img src={LogoRemote} alt="Logo Remote" className="w-11"/>
                             <div className="container col-span-2">
-                                <h3 className="text-lg font-semibold text-end mb-1">{truncateText(remote.device_name)}</h3>
+                                <h3 className="text-lg font-semibold text-end mb-1 truncate">{remote.device_name}</h3>
                                 <p className="text-xs text-end">{remote.serial_number}</p>
                             </div>
                         </div>
@@ -74,8 +67,8 @@ const RemoteDashboard = () => {
                 ))}
             </div>
             ) : (
-                <div className='container grid grid-rows-1 text-center h-full my-60'>
-                    <div className="my-auto">
+                <div className='container grid grid-rows-1 text-center h-screen -mt-32'>
+                    <div className="grid content-center">
                         <h3 className='text-3xl font-semibold'>Tidak ada Device IR Remote</h3>
                         <p className='text-md font-medium'><span className='text-orange-400'>Registrasi Device IR Remote</span> di Device Manager</p>
                     </div>

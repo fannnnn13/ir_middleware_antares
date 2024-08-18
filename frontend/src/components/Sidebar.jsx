@@ -10,11 +10,11 @@ const Sidebar = () => {
             <div className="container">
                 <aside
                     id="sidebar"
-                    className="h-full fixed top-0 left-0 z-40 w-60 bg-gradient-to-tr from-yellow-500 via-red-600 to-black border-r border-black"
+                    className="fixed top-0 left-0 z-40 w-60 bg-gradient-to-tr from-yellow-500 via-red-600 to-black border-r border-black"
                 >
-                    <div className="px-0 py-0 content-between">
+                    <div className="h-screen px-0 py-0 grid grid-cols-1 content-between">
                         {/* Navbar and Logo */}
-                        <div className="mb-52">
+                        <div className="mb-auto">
                             {/* Logo */}
                             <div className="px-9 py-11">
                                 <img src={Logo} alt="Logo Antares" />
@@ -110,11 +110,11 @@ const Sidebar = () => {
                             <div id="accountButton">
                                 <button
                                     type="button"
-                                    className="text-white border-2 border-orange-500 rounded-md text-lg font-medium w-full py-2 text-center hover:bg-orange-500 hover:text-w mb-3"
+                                    className="text-white border-2 border-orange-500 rounded-md text-lg font-medium w-full py-2 text-center hover:bg-orange-500 mb-3"
                                 >
                                     <Link
                                         to="/account"
-                                        className="text-orange-500 flex items-center justify-between mx-7"
+                                        className="text-orange-500 flex items-center justify-between mx-7 hover:text-white"
                                     >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"

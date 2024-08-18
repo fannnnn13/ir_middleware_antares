@@ -48,21 +48,23 @@ const DetailsDeviceComponent = () => {
 
     return (
         <div className="container">
-            <header className="grid grid-cols-12 items-center py-12">
+            <header className="flex items-center py-12 gap-7">
                 <button>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" className="bi bi-arrow-left" viewBox="0 0 16 16">
                         <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
                     </svg>
                 </button>
-                <h1 className="text-3xl font-bold col-span-11 -ml-10">Details Device</h1>
+                <h1 className="flex-1 text-3xl font-bold">Details Device</h1>
             </header>
             {/* Details Device */}
             <div className="container border border-black">
-                <div className="container h-28 border-b border-black grid grid-cols-12 place-content-center p-8">
-                    <img src={LogoRemote} alt="Logo Remote" className='w-11'/>
-                    <div className="container col-start-2 col-end-10">
-                        <h3 className="text-lg font-semibold mb-1">{deviceName}</h3>
-                        <p className="text-xs">SN : {serialNumber}</p>
+                <div className="flex container h-28 border-b border-black place-content-center p-8">
+                    <div className="flex container">
+                        <img src={LogoRemote} alt="Logo Remote" className='w-11 mr-5'/>
+                        <div className="container col-start-2 col-end-10">
+                            <h3 className="text-lg font-semibold mb-1">{deviceName}</h3>
+                            <p className="text-xs">SN : {serialNumber}</p>
+                        </div>
                     </div>
                     <form className="grid justify-end col-start-10 col-end-13 place-content-center">
                             <label htmlFor="search" className='text-sm font medium text-black sr-only'>Search</label>
@@ -106,8 +108,8 @@ const DetailsDeviceComponent = () => {
                         ))}
                     </div>
                 ) : (
-                    <div className='container grid grid-rows-1 text-center h-full my-60'>
-                        <div className="my-auto">
+                    <div className='container grid grid-rows-1 text-center h-screen -mt-32 -mb-36'>
+                        <div className="grid content-center">
                             <h3 className='text-3xl font-semibold'>Tidak ada list varian IR</h3>
                             <p className='text-md font-medium'><span className='text-orange-400'>Tambahkan Varian IR</span> di Device Manager</p>
                         </div>
