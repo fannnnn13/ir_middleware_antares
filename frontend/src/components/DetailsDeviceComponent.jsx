@@ -18,7 +18,6 @@ const DetailsDeviceComponent = () => {
         try {
             const response = await axios.get(`http://localhost:5000/remotes/${uuid}`);
             const remoteData = response.data; // Directly access the data object
-            console.log(remoteData);
             setDeviceName(remoteData.device_name || "Unknown Device");
             setSerialNumber(remoteData.serial_number || "Unknown Serial Number");
             
@@ -34,7 +33,6 @@ const DetailsDeviceComponent = () => {
         try {
             const response = await axios.get(`http://localhost:5000/irlist/${uuid}`);
             setIrlists(response.data);
-            console.log(response.data);
         } catch (error) {
             console.error("Error fetching IR list:", error);
             setIrlists([]);

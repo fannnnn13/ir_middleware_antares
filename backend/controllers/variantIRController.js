@@ -19,10 +19,16 @@ export const getVariants = async (req, res) => {
 
 export const getVariantById = async (req, res) => {
     try {
-        const response = await VariantIR.findOne({
-            where: {
-                uuid: req.params.uuid,
-            },
+        const response = await VariantIR.findAll({
+            include: [
+                {
+                    model: Brands,
+                    where: {
+                        uuid: req.params.uuid,
+                    },
+                    attributes: ["uuid", "brand_name"],
+                },
+            ],
         });
         res.status(200).json(response);
     } catch (error) {

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
-// import axios from 'axios'
 import { Link } from 'react-router-dom'
 
 const QuickManagerComponent = () => {
@@ -22,7 +21,6 @@ const QuickManagerComponent = () => {
         const response = await axios.get("http://localhost:5000/brands");
         const sortedData = response.data.sort((a, b) => a.brand_name.localeCompare(b.brand_name));
         setBrands(sortedData);
-        console.log(sortedData);
     };
 
     const deleteBrand = async (uuid) => {
@@ -57,7 +55,7 @@ const QuickManagerComponent = () => {
                                         <input
                                             type="search"
                                             id="default-search"
-                                            className="block w-full px-4 py-2 ps-10 text-sm text-black border border-gray-300 rounded-md bg-white focus:outline-none focus:border-orange-500 focus:border-2"
+                                            className="block w-full px-4 py-3 ps-10 text-sm text-black border border-gray-300 rounded-md bg-white focus:outline-none focus:border-black focus:border-2"
                                             placeholder="Search"
                                             onChange={(e) => setSearch(e.target.value.toLowerCase())}
                                             required
