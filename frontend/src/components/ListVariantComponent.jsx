@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { useState, useEffect, useCallback } from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import AddVariant from './modal/AddVariant';
+import UpdateVariant from './modal/UpdateVariant';
 
 const ListVariantComponent = () => {
     const { uuid } = useParams();
@@ -11,11 +12,21 @@ const ListVariantComponent = () => {
 
     const [brandName, setBrandName] = useState('');
     const [selectedBrandId, setSelectedBrandId] = useState('');
+    const [VariantData, setVariantData] = useState({});
 
     // Modal
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
+
+    const openUpdateModal = (variant) => {
+        setVariantData(variant);
+        setIsUpdateModalOpen(true);
+    };
+
+    const closeUpdateModal = () => setIsUpdateModalOpen(false);
 
     const getBrandsById = useCallback(async () => {
         try {
@@ -29,12 +40,6 @@ const ListVariantComponent = () => {
         }
     }, [uuid]);
 
-    // const getVariants = async () => {
-    //     const response = await axios.get("http://localhost:5000/variants");
-    //     const sortedData = response.data.sort((a, b) => a.variant_name.localeCompare(b.variant_name));
-    //     setVariants(sortedData);
-    // };
-
     const getVariantsById = useCallback(async () => {
         try {
             const response = await axios.get(`http://localhost:5000/variants/${uuid}`);
@@ -44,6 +49,17 @@ const ListVariantComponent = () => {
             setVariants([]);
         }
     }, [uuid]);
+
+    // const updateVariant = async (uuid) => {
+    //     try {
+    //         await axios.patch(`http://localhost:5000/variants/${uuid}`);
+    //         alert("Variant updated successfully");
+    //         getVariantsById();
+    //         closeUpdateModal();
+    //     } catch (error) {
+    //         console.error("Error updating variant:", error);
+    //     }
+    // };
 
     const deleteVariant = async (uuid) => {
         await axios.delete(`http://localhost:5000/variants/${uuid}`);
@@ -106,8 +122,10 @@ const ListVariantComponent = () => {
                                                 <tr key={variant.uuid} className='flex content-between border-b border-black p-2'>
                                                     <td className='flex-1 text-lg font-medium place-content-center ml-6'>{variant.variant_name}</td>
                                                     <td className='flex gap-4 place-content-end mr-6'>
-                                                        <Link to={`/variants/edit/${variant.uuid}`} className='text-white text-xs text-center bg-orange-500 w-28 py-3 rounded-md hover:bg-orange-700'>Edit</Link>
+                                                        {/* Actions */}
+                                                        <button onClick={() => openUpdateModal(variant)} className='text-white text-xs text-center bg-orange-500 w-28 py-3 rounded-md hover:bg-orange-700'>Edit</button>
                                                         <button onClick={() => deleteVariant(variant.uuid)} className='text-white text-xs text-center bg-red-500 w-28 py-3 rounded-md hover:bg-red-800'>Hapus</button>
+                                                        <UpdateVariant isOpen={isUpdateModalOpen} onClose={closeUpdateModal} variantData={VariantData} />
                                                     </td>
                                                 </tr>
                                             </tbody>
