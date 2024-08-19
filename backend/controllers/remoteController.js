@@ -26,8 +26,50 @@ export const getRemoteById = async (req, res) => {
     }
 };
 
+// export const createRemote = async (req, res) => {
+//     try {
+//         const existingRemote = await Remote.findOne({
+//             where: {
+//                 device_name: req.body.device_name,
+//                 serial_number: req.body.serial_number,
+//             },
+//         });
+
+//         if (existingRemote) {
+//             return res.status(409).json({ message: "Remote already exists" });
+//         }
+
+//         await Remote.create(req.body);
+//         res.status(201).json({ message: "Remote created successfully" });
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// };
+
 export const createRemote = async (req, res) => {
     try {
+        const { device_name, serial_number } = req.body;
+
+        const existingDeviceName = await Remote.findOne({
+            where: { device_name },
+        });
+
+        if (existingDeviceName) {
+            return res
+                .status(409)
+                .json({ message: "Device name already exists" });
+        }
+
+        const existingSerialNumber = await Remote.findOne({
+            where: { serial_number },
+        });
+
+        if (existingSerialNumber) {
+            return res
+                .status(409)
+                .json({ message: "Serial number already exists" });
+        }
+
         await Remote.create(req.body);
         res.status(201).json({ message: "Remote created successfully" });
     } catch (error) {

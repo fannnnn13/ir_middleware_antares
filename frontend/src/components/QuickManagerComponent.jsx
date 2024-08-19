@@ -1,21 +1,34 @@
-import axios from 'axios';
 import React, { useState, useEffect } from 'react'
+import axios from 'axios';
 import { Link } from 'react-router-dom'
+import AddBrand from './modal/AddBrand';
+import AlertMessage from './alert/AlertMessage';
+import UpdateBrand from './modal/UpdateBrand';
+
 
 const QuickManagerComponent = () => {
     const [brands, setBrands] = useState([]);
     const [search, setSearch] = useState('');
+    const [brandData, setBrandData] = useState({});
 
-    useEffect(() => {
-        getBrands();
-    }, []);
-    
+    const [isAlertMessageOpen, setIsAlertMessageOpen] = useState(false);
+    const [message, setMessage] = useState('');
+    const [isError, setIsError] = useState(false);
+    const closeAlertMessage = () => setIsAlertMessageOpen(false);
 
-    // const getBrands = async () => {
-    //     const response = await axios.get("http://localhost:5000/brands");
-    //     setBrands(response.data);
-    //     console.log(response.data);
-    // };
+    // Modal
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+
+    const openUpdateModal = (brand) => {
+        setBrandData(brand);
+        setIsUpdateModalOpen(true);
+    }
+
+    const closeUpdateModal = () => setIsUpdateModalOpen(false);
 
     const getBrands = async () => {
         const response = await axios.get("http://localhost:5000/brands");
@@ -24,21 +37,35 @@ const QuickManagerComponent = () => {
     };
 
     const deleteBrand = async (uuid) => {
-        await axios.delete(`http://localhost:5000/brands/${uuid}`);
-        getBrands();
+        try {
+            await axios.delete(`http://localhost:5000/brands/${uuid}`);
+            setMessage('Sukses dihapus');
+            setIsError(false);
+            getBrands();
+        } catch (error) {
+            setMessage('Gagal dihapus');
+            setIsError(true);
+            console.error('Error deleting brand:', error);
+        } finally {
+            setIsAlertMessageOpen(true);
+        }
     };
 
+    useEffect(() => {
+        getBrands();
+    }, []);
+
     return (
+        <>
         <div className="container">
             {brands.length > 0 ? (
                 <div className="container">
                     <header className='flex items-center py-12 content-between'>
                         <h1 className='flex-1 text-3xl font-bold'>Quick Match Manager</h1>
-                        <button type='button' className= 'text-white text-md bg-orange-500 rounded-md font-medium hover:bg-orange-700 p-3 w-48'>
-                            <Link to="/add-brand" className='text-center'>
-                                Tambah Brand
-                            </Link>
+                        <button type='button' onClick={openModal} className= 'text-white text-md bg-orange-500 rounded-md font-medium hover:bg-orange-700 p-3 w-48'>
+                            Tambah Brand
                         </button>
+                        <AddBrand isOpen={isModalOpen} onClose={closeModal} />
                     </header>
                     {/* Details Device */}
                     <div className="container border border-black">
@@ -74,7 +101,7 @@ const QuickManagerComponent = () => {
                                         <tr key={brand.uuid} className='grid grid-cols-2 content-between border-b border-black p-2'>
                                             <td className='text-lg font-medium place-content-center ml-6'>{brand.brand_name}</td>
                                             <td className='grid grid-cols-3 gap-4 place-content-end mr-6'>
-                                                <Link to={`/brands/edit/${brand.uuid}`} className='text-white text-xs text-center bg-orange-500 px-2 py-2 rounded-md hover:bg-orange-700'>Edit Brand</Link>
+                                                <button onClick={() => openUpdateModal(brand)} className='text-white text-xs text-center bg-orange-500 px-4 py-2 rounded-md hover:bg-orange-700'>Edit</button>
                                                 <Link to={`/brands/variants/${brand.uuid}`} className='text-orange-500 text-xs text-center bg-white px-4 py-2 rounded-md border border-orange-500 hover:bg-orange-400 hover:text-white'>List Varian</Link>
                                                 <button onClick={() => deleteBrand(brand.uuid)} className='text-white text-xs text-center bg-red-500 px-4 py-2 rounded-md hover:bg-red-800'>Hapus</button>
                                             </td>
@@ -83,21 +110,28 @@ const QuickManagerComponent = () => {
                                 </table>
                             ))}
                         </div>
+                        <UpdateBrand isOpen={isUpdateModalOpen} onClose={closeUpdateModal} brandData={brandData} /> 
                     </div>
                 </div>
             ) : (
                 <div className="container h-screen content-center">
                     <header className='grid grid-cols-12 gap-8 items-center'>
                         <h1 className='text-3xl font-bold col-span-6 grid justify-items-end'>Quick Match Manager</h1>
-                        <button type='button' className='grid justify-items-start text-white text-md bg-orange-500 rounded-md font-medium hover:bg-orange-700 p-3 col-start-7 col-end-10 place-content-center mx-5'>
-                            <Link to="/add-brand" className=''>
+                        <button type='button' onClick={openModal} className= 'grid justify-items-start text-white text-md bg-orange-500 rounded-md font-medium hover:bg-orange-700 p-3 col-start-7 col-end-10 place-content-center mx-5'>
                             Tambah Brand
-                            </Link>
                         </button>
+                        <AddBrand isOpen={isModalOpen} onClose={closeModal} />
                     </header>
                 </div>
             )}
         </div>
+        <AlertMessage 
+            isOpen={isAlertMessageOpen}
+            onClose={closeAlertMessage}
+            message={message}
+            isError={isError}
+        />
+        </>
     )
 }
 

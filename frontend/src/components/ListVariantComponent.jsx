@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import AddVariant from './modal/AddVariant';
 import UpdateVariant from './modal/UpdateVariant';
+import AlertMessage from './alert/AlertMessage';
 
 const ListVariantComponent = () => {
     const { uuid } = useParams();
@@ -13,6 +14,11 @@ const ListVariantComponent = () => {
     const [brandName, setBrandName] = useState('');
     const [selectedBrandId, setSelectedBrandId] = useState('');
     const [VariantData, setVariantData] = useState({});
+
+    const [isAlertMessageOpen, setIsAlertMessageOpen] = useState(false);
+    const [message, setMessage] = useState('');
+    const [isError, setIsError] = useState(false);
+    const closeAlertMessage = () => setIsAlertMessageOpen(false);
 
     // Modal
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -62,8 +68,18 @@ const ListVariantComponent = () => {
     // };
 
     const deleteVariant = async (uuid) => {
-        await axios.delete(`http://localhost:5000/variants/${uuid}`);
-        getVariantsById();
+        try {
+            await axios.delete(`http://localhost:5000/variants/${uuid}`);
+            setMessage('Sukses dihapus');
+            setIsError(false);
+            getVariantsById();
+        } catch (error) {
+            setMessage('Gagal dihapus');
+            setIsError(true);
+            console.error('Error deleting variant:', error);
+        } finally {
+            setIsAlertMessageOpen(true);
+        }
     };
 
     useEffect(() => {
@@ -72,6 +88,7 @@ const ListVariantComponent = () => {
     }, [getBrandsById, getVariantsById]);
 
     return (
+        <>
         <div className="container">
             <div className="container">
                     <header className='flex items-center py-12 gap-7 content-between'>
@@ -144,6 +161,13 @@ const ListVariantComponent = () => {
                     </div>
             </div>
         </div>
+        <AlertMessage 
+            isOpen={isAlertMessageOpen}
+            onClose={closeAlertMessage}
+            message={message}
+            isError={isError}            
+        />
+        </>
     )
 }
 

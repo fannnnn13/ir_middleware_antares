@@ -3,7 +3,8 @@ import Dashboard from "./pages/Dashboard";
 import DetailsDevice from "./pages/DetailsDevice";
 import QuickMatchManager from "./pages/QuickMatchManager";
 import ListVariant from "./pages/ListVariant";
-import TestComponent from "./pages/TestComponent";
+import DeviceManager from "./pages/DeviceManager";
+import DetailsDeviceManager from "./pages/DetailsDeviceManager";
 
 function App() {
     return (
@@ -23,7 +24,11 @@ function App() {
                         path="/brands/variants/:uuid"
                         element={<ListVariant />}
                     />
-                    <Route path="/test" element={<TestComponent />} />
+                    <Route path="/device-manager" element={<DeviceManager />} />
+                    <Route
+                        path="/device-manager/details/:uuid"
+                        element={<DetailsDeviceManager />}
+                    />
                 </Routes>
             </BrowserRouter>
         </div>

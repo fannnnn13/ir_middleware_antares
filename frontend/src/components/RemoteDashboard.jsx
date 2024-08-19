@@ -23,15 +23,12 @@ const RemoteDashboard = () => {
                 <form className="grid justify-end">
                     <label htmlFor="search" className='text-sm font-medium text-black sr-only'>Search</label>
                     <div className="relative">
-                    <div
-                            className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
+                    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg"
                                 width="16"
                                 height="16"
                                 fill="currentColor"
-                                class="bi bi-search text-gray-400"
+                                className="bi bi-search text-gray-400"
                                 viewBox="0 0 16 16"
                             >
                                 <path
@@ -42,7 +39,7 @@ const RemoteDashboard = () => {
                         <input
                             type="search"
                             id="default-search"
-                            class="block w-full px-4 py-2 ps-10 text-sm text-black border border-gray-300 rounded-md bg-white focus:outline-none focus:border-orange-500 focus:border-2"
+                            className="block w-full px-4 py-2 ps-10 text-sm text-black border border-gray-300 rounded-md bg-white focus:outline-none focus:border-orange-500 focus:border-2"
                             placeholder="Search"
                             onChange={(e) => setSearch(e.target.value.toLowerCase())}
                             required

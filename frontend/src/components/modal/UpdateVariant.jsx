@@ -44,6 +44,7 @@ const UpdateVariantModal = ({ isOpen, onClose, variantData }) => {
             });
             alert('Variant updated successfully');
             onClose(); // Close modal after submission
+            window.location.reload(); 
         } catch (error) {
             console.error('Error updating variant:', error);
         }

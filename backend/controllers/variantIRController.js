@@ -38,6 +38,16 @@ export const getVariantById = async (req, res) => {
 
 export const createVariant = async (req, res) => {
     try {
+        const existingVariant = await VariantIR.findOne({
+            where: {
+                variant_name: req.body.variant_name,
+            },
+        });
+
+        if (existingVariant) {
+            return res.status(409).json({ message: "Variant already exists" });
+        }
+
         await VariantIR.create(req.body);
         res.status(201).json({ message: "Variant created successfully" });
     } catch (error) {

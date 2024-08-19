@@ -1,7 +1,7 @@
-// AddVariantModal.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Modal from '../Modal';
+import AlertMessage from '../alert/AlertMessage';
 
 const AddVariantModal = ({ isOpen, onClose, selectedBrandId }) => {
     const [brands, setBrands] = useState([]);
@@ -9,6 +9,13 @@ const AddVariantModal = ({ isOpen, onClose, selectedBrandId }) => {
     const [variantName, setVariantName] = useState('');
     const [rawData1, setRawData1] = useState('');
     const [rawData2, setRawData2] = useState('');
+
+    // Alert Message
+    const [isAlertMessageOpen, setIsAlertMessageOpen] = useState(false);
+    const [message, setMessage] = useState('');
+    const [isError, setIsError] = useState(false);
+
+    const closeModal = () => setIsAlertMessageOpen(false);
 
     useEffect(() => {
         const fetchBrands = async () => {
@@ -31,20 +38,34 @@ const AddVariantModal = ({ isOpen, onClose, selectedBrandId }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-        await axios.post('http://localhost:5000/variants', {
-            brand_id: selectedBrandId,
-            variant_name: variantName,
-            raw_data1: rawData1,
-            raw_data2: rawData2,
-        });
-        alert('Variant added successfully');
-        onClose(); // Close modal after submission
+            const response = await axios.post('http://localhost:5000/variants', {
+                brand_id: selectedBrandId,
+                variant_name: variantName,
+                raw_data1: rawData1,
+                raw_data2: rawData2,
+            });
+
+            if (response.status === 201) {
+                setMessage('Sukses ditambahkan');
+                setIsError(false);
+            } else if (response.status === 409) {
+                setMessage('Varian sudah ada');
+                setIsError(true);
+            }
+            setIsAlertMessageOpen(true);
+            setVariantName('');
+            onClose(); // Close modal after submission
+            window.location.reload(); 
         } catch (error) {
-        console.error('Error submitting form:', error);
+            setMessage('Gagal ditambahkan');
+            setIsError(true);
+            setIsAlertMessageOpen(true);
+            console.error('Error submitting form:', error);
         }
     };
 
     return (
+        <>
         <Modal isOpen={isOpen} onClose={onClose}>
         <h2 className="text-2xl font-bold p-4">Tambah Varian</h2>
         <form onSubmit={handleSubmit} className="p-4">
@@ -115,7 +136,14 @@ const AddVariantModal = ({ isOpen, onClose, selectedBrandId }) => {
             </button>
         </form>
         </Modal>
-    );
-};
+        <AlertMessage 
+            isOpen = {isAlertMessageOpen}
+            onClose = {closeModal}
+            message = {message}
+            isError = {isError}
+        />
+        </>
+    )
+}
 
 export default AddVariantModal;

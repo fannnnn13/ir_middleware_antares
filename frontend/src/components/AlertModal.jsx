@@ -1,12 +1,13 @@
+// Modal.js
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const Modal = ({ isOpen, onClose, children }) => {
+const AlertModal = ({ isOpen, onClose, children }) => {
     if (!isOpen) return null;
 
     return ReactDOM.createPortal(
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50 font-plusjakarta">
-        <div className="bg-white rounded-lg shadow-lg w-screen max-w-screen-lg p-6 relative">
+        <div className="bg-white rounded-lg shadow-lg w-screen max-w-sm p-5 relative">
             <button
             onClick={onClose}
             className="absolute top-10 right-10 text-black hover:bg-gray-300 rounded-md p-1"
@@ -33,4 +34,4 @@ const Modal = ({ isOpen, onClose, children }) => {
     );
 };
 
-export default Modal;
+export default AlertModal;

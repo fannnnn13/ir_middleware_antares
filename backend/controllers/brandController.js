@@ -25,6 +25,17 @@ export const getBrandById = async (req, res) => {
 
 export const createBrand = async (req, res) => {
     try {
+        // Check if a brand with the same name already exists
+        const existingBrand = await Brands.findOne({
+            where: { brand_name: req.body.brand_name },
+        });
+
+        if (existingBrand) {
+            // If a brand with the same name exists, return a 409 Conflict response
+            return res.status(409).json({ message: "Brand already exists" });
+        }
+
+        // If no duplicate, create the new brand
         await Brands.create(req.body);
         res.status(201).json({ message: "Brand created successfully" });
     } catch (error) {
