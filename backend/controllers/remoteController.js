@@ -4,7 +4,7 @@ import Remote from "../models/remoteModel.js";
 export const getRemotes = async (req, res) => {
     try {
         const response = await Remote.findAll({
-            attributes: ["uuid", "device_name", "serial_number"],
+            attributes: ["id", "uuid", "device_name", "serial_number"],
         });
         res.status(200).json(response);
     } catch (error) {
@@ -18,7 +18,7 @@ export const getRemoteById = async (req, res) => {
             where: {
                 uuid: req.params.uuid,
             },
-            attributes: ["uuid", "device_name", "serial_number"],
+            attributes: ["id", "uuid", "device_name", "serial_number"],
         });
         res.status(200).json(response);
     } catch (error) {

@@ -13,7 +13,8 @@ const RemoteDashboard = () => {
 
     const getRemotes = async () => {
         const response = await axios.get("http://localhost:5000/remotes");
-        setRemotes(response.data);
+        const sortedData = response.data.sort((a, b) => a.device_name.localeCompare(b.device_name));
+        setRemotes(sortedData);
     }
 
     return (
@@ -52,7 +53,7 @@ const RemoteDashboard = () => {
                 {remotes.filter((remote) => {
                     return search.toLowerCase() === '' || remote.serial_number.toLowerCase().includes(search) || remote.device_name.toLowerCase().includes(search);
                 }).map((remote) => (
-                    <Link to={`/details-device/${remote.uuid}`} key={remote.id} className='block'>
+                    <Link to={`/details-device/${remote.uuid}`} key={remote.uuid} className='block'>
                         <div className=' p-6 content-between grid grid-cols-3 border border-black rounded-md hover:shadow-myBox hover:duration-500'>
                             <img src={LogoRemote} alt="Logo Remote" className="w-11"/>
                             <div className="container col-span-2">

@@ -93,7 +93,7 @@ const DetailsDeviceComponent = () => {
                                 irlist.brand?.brand_name.toLowerCase().includes(search) || 
                                 irlist.variant_ir?.variant_name.toLowerCase().includes(search);
                         }).map((irlist) => (
-                            <div key={irlist.id} className="p-7 content-between grid grid-cols-4 border border-black rounded-md place-content-center hover:shadow-myBox hover:duration-500 h-24">
+                            <div key={irlist.uuid} className="p-7 content-between grid grid-cols-4 border border-black rounded-md place-content-center hover:shadow-myBox hover:duration-500 h-24">
                                 <img src={Device} alt="Logo Device" className='w-7'/>
                                 <div className="container col-span-2 -ml-7">
                                     <h3 className='variant text-md -mt-1 mb-1 font-semibold'>{irlist.variant_ir?.variant_name}</h3>

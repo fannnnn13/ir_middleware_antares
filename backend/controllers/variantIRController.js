@@ -1,16 +1,42 @@
 import VariantIR from "../models/variantIRModel.js";
 import Brands from "../models/brandModel.js";
 
+// export const getVariants = async (req, res) => {
+//     try {
+//         const response = await VariantIR.findAll({
+//             include: [
+//                 {
+//                     model: Brands,
+//                     attributes: ["uuid", "brand_name"],
+//                 },
+//             ],
+//         });
+//         res.status(200).json(response);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// };
+
 export const getVariants = async (req, res) => {
     try {
-        const response = await VariantIR.findAll({
+        const { brand_id } = req.query;
+
+        let queryOptions = {
             include: [
                 {
                     model: Brands,
                     attributes: ["uuid", "brand_name"],
                 },
             ],
-        });
+        };
+
+        // If brand_id is provided, add a where clause to filter by brand_id
+        if (brand_id) {
+            queryOptions.where = { brand_id };
+        }
+
+        const response = await VariantIR.findAll(queryOptions);
+
         res.status(200).json(response);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -38,14 +64,19 @@ export const getVariantById = async (req, res) => {
 
 export const createVariant = async (req, res) => {
     try {
+        const { brand_id, variant_name } = req.body;
+
         const existingVariant = await VariantIR.findOne({
             where: {
-                variant_name: req.body.variant_name,
+                brand_id,
+                variant_name,
             },
         });
 
         if (existingVariant) {
-            return res.status(409).json({ message: "Variant already exists" });
+            return res
+                .status(409)
+                .json({ message: "Variant already exists for this brand" });
         }
 
         await VariantIR.create(req.body);

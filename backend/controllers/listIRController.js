@@ -103,6 +103,20 @@ export const getIRListByDeviceId = async (req, res) => {
 
 export const addIRList = async (req, res) => {
     try {
+        const { brand_id, variant_id, device_id } = req.body;
+
+        const existingIRList = await ListIR.findOne({
+            where: {
+                brand_id,
+                variant_id,
+                device_id,
+            },
+        });
+
+        if (existingIRList) {
+            return res.status(409).json({ message: "IR List already exists" });
+        }
+
         await ListIR.create(req.body);
         res.status(201).json({ message: "IR List created successfully" });
     } catch (error) {

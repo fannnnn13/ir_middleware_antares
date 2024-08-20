@@ -1,6 +1,5 @@
-import axios from 'axios';
 import React, { useState, useEffect, useCallback } from 'react'
-// import { Link } from 'react-router-dom'
+import axios from 'axios';
 import { useParams } from 'react-router-dom'
 import AddVariant from './modal/AddVariant';
 import UpdateVariant from './modal/UpdateVariant';
@@ -55,17 +54,6 @@ const ListVariantComponent = () => {
             setVariants([]);
         }
     }, [uuid]);
-
-    // const updateVariant = async (uuid) => {
-    //     try {
-    //         await axios.patch(`http://localhost:5000/variants/${uuid}`);
-    //         alert("Variant updated successfully");
-    //         getVariantsById();
-    //         closeUpdateModal();
-    //     } catch (error) {
-    //         console.error("Error updating variant:", error);
-    //     }
-    // };
 
     const deleteVariant = async (uuid) => {
         try {

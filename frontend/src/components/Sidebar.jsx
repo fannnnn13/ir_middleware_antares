@@ -1,9 +1,15 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import Logo from '../img/logo antares IR.png'
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import Logo from '../img/logo antares IR.png';
 
 const Sidebar = () => {
-    const [activeItem, setActiveItem] = useState("dashboard");
+    const location = useLocation();
+    const [activeItem, setActiveItem] = useState(location.pathname);
+
+    // Update the active item when the location changes
+    useEffect(() => {
+        setActiveItem(location.pathname);
+    }, [location]);
 
     return (
         <div className="font-plusjakarta">
@@ -24,67 +30,53 @@ const Sidebar = () => {
                                 <li className="border-t border-black">
                                     <Link
                                         to="/dashboard"
-                                        className={`flex items-center px-6 py-4 text-black bg-white ${
-                                            activeItem === "dashboard"
+                                        className={`flex items-center px-6 py-4 text-black bg-white relative ${
+                                            activeItem === "/dashboard"
                                                 ? "border-l-14 border-orange-600"
-                                                : ""
+                                                : "hover:bg-orange-300"
                                         }`}
-                                        onClick={() =>
-                                            setActiveItem("dashboard")
-                                        }
+                                        onClick={() => setActiveItem("/dashboard")}
                                     >
-                                        <span>Dashboard</span>
+                                        <span className="z-10 relative">Dashboard</span>
                                     </Link>
                                 </li>
                                 <li className="border-t border-black">
                                     <Link
                                         to="/device-manager"
-                                        className={`flex items-center px-6 py-4 text-black bg-white hover:bg-orange-300 ${
-                                            activeItem === "device-manager"
+                                        className={`flex items-center px-6 py-4 text-black bg-white relative ${
+                                            activeItem === "/device-manager" || "/device-manager/details:uuid"
                                                 ? "border-l-14 border-orange-600"
-                                                : ""
+                                                : "hover:bg-orange-300"
                                         }`}
-                                        onClick={() =>
-                                            setActiveItem("device-manager")
-                                        }
+                                        onClick={() => setActiveItem("/device-manager")}
                                     >
-                                        <span className="ms-3">
-                                            Device Manager
-                                        </span>
+                                        <span className="z-10 relative">Device Manager</span>
                                     </Link>
                                 </li>
                                 <li className="border-t border-black">
                                     <Link
                                         to="/quick-match-manager"
-                                        className={`flex items-center px-6 py-4 text-black bg-white hover:bg-orange-300 ${
-                                            activeItem === "quick-match-manager"
+                                        className={`flex items-center px-6 py-4 text-black bg-white relative ${
+                                            activeItem === "/quick-match-manager"
                                                 ? "border-l-14 border-orange-600"
-                                                : ""
+                                                : "hover:bg-orange-300"
                                         }`}
-                                        onClick={() =>
-                                            setActiveItem("quick-match-manager")
-                                        }
+                                        onClick={() => setActiveItem("/quick-match-manager")}
                                     >
-                                        <span className="ms-3">
-                                            Quick Match Manager
-                                        </span>
+                                        <span className="z-10 relative">Quick Match Manager</span>
                                     </Link>
                                 </li>
                                 <li className="border-y border-black">
                                     <Link
                                         to="/integration-menu"
-                                        className={`flex items-center px-6 py-4 text-black bg-white hover:bg-orange-300 ${
-                                            activeItem === "integration-menu"
+                                        className={`flex items-center px-6 py-4 text-black bg-white relative ${
+                                            activeItem === "/integration-menu"
                                                 ? "border-l-14 border-orange-600"
-                                                : ""
+                                                : "hover:bg-orange-300"
                                         }`}
-                                        onClick={() =>
-                                            setActiveItem("integration-menu")
-                                        }
+                                        onClick={() => setActiveItem("/integration-menu")}
                                     >
-                                        <span className="ms-3">
-                                            Integration Menu
-                                        </span>
+                                        <span className="z-10 relative">Integration Menu</span>
                                     </Link>
                                 </li>
                             </ul>
@@ -101,9 +93,7 @@ const Sidebar = () => {
                                     />
                                 </div>
                                 <div className="text-black col-span-2">
-                                    <p className="text-lg font-medium">
-                                        John Doe
-                                    </p>
+                                    <p className="text-lg font-medium">John Doe</p>
                                     <p className="text-sm font-normal">Admin</p>
                                 </div>
                             </div>
@@ -164,6 +154,6 @@ const Sidebar = () => {
             </div>
         </div>
     );
-}
+};
 
-export default Sidebar
+export default Sidebar;

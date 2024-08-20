@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
-import Modal from './Modal'
 import AlertMessage from './alert/AlertMessage'
-import Add from '../img/add.png'
 import LogoRemote from '../img/remote.png'
 import { useParams, useNavigate } from 'react-router-dom'
-
-// import AddListIR from './modal/AddListIR'
+import AddIRList from './modal/AddIRList'
 import UpdateRemote from './modal/UpdateRemote'
 
 const DetailsDeviceManagerComponent = () => {
@@ -16,13 +13,18 @@ const DetailsDeviceManagerComponent = () => {
     const [search, setSearch] = useState('');
     const [remoteData, setRemoteData] = useState({});
 
+    const [navigateAfterClose, setNavigateAfterClose] = useState(false);
+
     const [deviceName, setDeviceName] = useState('');
     const [serialNumber, setSerialNumber] = useState('');
+    const [selectedBrandId, setSelectedBrandId] = useState('');
+    const [selectedVariantId, setSelectedVariantId] = useState('');
+    const [selectedDeviceId, setSelectedDeviceId] = useState('');
 
     const [isAlertMessageOpen, setIsAlertMessageOpen] = useState(false);
     const [message, setMessage] = useState('');
     const [isError, setIsError] = useState(false);
-    const closeAlertMessage = () => setIsAlertMessageOpen(false);
+    // const closeAlertMessage = () => setIsAlertMessageOpen(false);
 
     // Modal
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,18 +40,46 @@ const DetailsDeviceManagerComponent = () => {
 
     const closeUpdateModal = () => setIsUpdateModalOpen(false);
 
-    // Memoize the getRemotesById function
+    const closeAlertMessage = () => {
+        setIsAlertMessageOpen(false);
+        if (navigateAfterClose) {
+            setTimeout(() => {
+                navigate('/device-manager');
+            }, 500);
+        }
+    }
+
     const getRemotesById = useCallback(async () => {
         try {
             const response = await axios.get(`http://localhost:5000/remotes/${uuid}`);
-            const remoteData = response.data; // Directly access the data object
+            const remoteData = response.data;
             setDeviceName(remoteData.device_name || "Unknown Device");
             setSerialNumber(remoteData.serial_number || "Unknown Serial Number");
-            
+            setSelectedDeviceId(remoteData.id);
         } catch (error) {
             console.error("Error fetching remotes:", error);
             setDeviceName("Unknown Device");
             setSerialNumber("Unknown Serial Number");
+        }
+    }, [uuid]);
+
+    const getBrandsById = useCallback(async () => {
+        try {
+            const response = await axios.get(`http://localhost:5000/brands/${uuid}`);
+            const brandData = response.data;
+            setSelectedBrandId(brandData.id);
+        } catch (error) {
+            console.error("Error fetching brands:", error);
+        }
+    }, [uuid]);
+
+    const getVariantsById = useCallback(async () => {
+        try {
+            const response = await axios.get(`http://localhost:5000/variants/${uuid}`);
+            const variantData = response.data;
+            setSelectedVariantId(variantData.id);
+        } catch (error) {
+            console.error("Error fetching variants:", error);
         }
     }, [uuid]);
 
@@ -64,12 +94,12 @@ const DetailsDeviceManagerComponent = () => {
         }
     }, [uuid]); // uuid as dependency
 
-    const deleteRemote = async (uuid) => {
+    const deleteRemote = async () => {
         try {
             await axios.delete(`http://localhost:5000/remotes/${uuid}`);
             setMessage('Sukses dihapus');
             setIsError(false);
-            navigate('/device-manager');
+            setNavigateAfterClose(true);
         } catch (error) {
             setMessage('Gagal dihapus');
             setIsError(true);
@@ -79,10 +109,28 @@ const DetailsDeviceManagerComponent = () => {
         }
     };
 
+    const deleteIrList = async (uuid) => {
+        try {
+            await axios.delete(`http://localhost:5000/irlist/${uuid}`);
+            setMessage('Sukses dihapus');
+            console.log(uuid);
+            setIsError(false);
+            getIrList();
+        } catch (error) {
+            setMessage('Gagal dihapus');
+            setIsError(true);
+            console.error('Error deleting IR list:', error);
+        } finally {
+            setIsAlertMessageOpen(true);
+        }
+    };
+
     useEffect(() => {
         getRemotesById();
+        getBrandsById();
+        getVariantsById();
         getIrList();
-    }, [getRemotesById, getIrList]); // Adding the memoized functions as dependencies
+    }, [getRemotesById, getBrandsById, getVariantsById, getIrList]); // Adding the memoized functions as dependencies
 
     return (
         <>
@@ -130,21 +178,38 @@ const DetailsDeviceManagerComponent = () => {
                         </button>
                         <button onClick={openUpdateModal} className='text-white text-sm text-center bg-orange-500 w-80 py-3 rounded-md hover:bg-orange-700 mr-4'>Edit</button>
                         <button onClick={deleteRemote} className='text-white text-sm text-center bg-red-500 w-80 py-3 rounded-md hover:bg-red-800'>Hapus</button>
+                        <AddIRList isOpen={isModalOpen} onClose={closeModal} selectedDeviceId={selectedDeviceId} selectedBrandId={selectedBrandId} selectedVariantId={selectedVariantId}/>
                     </div>
                 </div>
+                <UpdateRemote isOpen={isUpdateModalOpen} onClose={closeUpdateModal} remoteData={remoteData} />
                 <div className="container">
                 {/* Datas */}
                 {irlists.length > 0 ? (
-                    <div className="container grid grid-cols-3 gap-6 p-5 min-h-full">
-                        {/* Data */}
-                        {irlists.filter((irlist) => {
-                            return search === '' || 
-                                irlist.brand?.brand_name.toLowerCase().includes(search) || 
-                                irlist.variant_ir?.variant_name.toLowerCase().includes(search);
-                        }).map((irlist) => (
-                            <div key={irlist.id} className="p-7 content-between grid grid-cols-4 border border-black rounded-md place-content-center hover:shadow-myBox hover:duration-500 h-24">
-                            </div>
-                        ))}
+                    <div className="container min-h-full">
+                        <table className='table-auto w-full'>
+                            <thead className='bg-orange-400 text-white'>
+                                <tr className='flex content-between px-8 py-5'>
+                                    <th className='basis-1/3 font-medium text-start'>Nama Brand</th>
+                                    <th className='basis-1/3 font-medium text-start'>Nama Varian</th>
+                                    <th className='basis-1/3 font-medium text-start'>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {irlists.filter((irlist) => {
+                                    return search === '' || 
+                                        irlist.brand?.brand_name.toLowerCase().includes(search) || 
+                                        irlist.variant_ir?.variant_name.toLowerCase().includes(search);
+                                }).map((irlist) => (
+                                    <tr key={irlist.uuid} className='flex content-between border-b border-black px-8 py-2'>
+                                        <td className='basis-1/3 text-lg font-medium text-start'>{irlist.brand.brand_name}</td>
+                                        <td className='basis-1/3 text-lg font-medium text-start'>{irlist.variant_ir.variant_name}</td>
+                                        <td className='basis-1/3 text-lg font-medium text-start'>
+                                            <button onClick={() => deleteIrList(irlist.uuid)} className='text-white text-xs text-center bg-red-500 px-24 py-2 rounded-md hover:bg-red-800'>Hapus</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
                 ) : (
                     <div className='container grid grid-rows-1 text-center h-screen'>
