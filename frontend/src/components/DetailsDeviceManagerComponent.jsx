@@ -34,7 +34,7 @@ const DetailsDeviceManagerComponent = () => {
     const closeModal = () => setIsModalOpen(false);
 
     const openUpdateModal = () => {
-        setRemoteData({ deviceName, serialNumber });
+        setRemoteData({uuid, deviceName, serialNumber});
         setIsUpdateModalOpen(true);
     };
 
@@ -109,11 +109,12 @@ const DetailsDeviceManagerComponent = () => {
         }
     };
 
-    const deleteIrList = async (uuid) => {
+    const deleteIrList = async (irlistuuid) => {
+        console.log(irlistuuid);
+
         try {
-            await axios.delete(`http://localhost:5000/irlist/${uuid}`);
+            await axios.delete(`http://localhost:5000/irlist/${irlistuuid}`);
             setMessage('Sukses dihapus');
-            console.log(uuid);
             setIsError(false);
             getIrList();
         } catch (error) {
@@ -179,9 +180,9 @@ const DetailsDeviceManagerComponent = () => {
                         <button onClick={openUpdateModal} className='text-white text-sm text-center bg-orange-500 w-80 py-3 rounded-md hover:bg-orange-700 mr-4'>Edit</button>
                         <button onClick={deleteRemote} className='text-white text-sm text-center bg-red-500 w-80 py-3 rounded-md hover:bg-red-800'>Hapus</button>
                         <AddIRList isOpen={isModalOpen} onClose={closeModal} selectedDeviceId={selectedDeviceId} selectedBrandId={selectedBrandId} selectedVariantId={selectedVariantId}/>
+                        <UpdateRemote isOpen={isUpdateModalOpen} onClose={closeUpdateModal} remoteData={remoteData} />
                     </div>
                 </div>
-                <UpdateRemote isOpen={isUpdateModalOpen} onClose={closeUpdateModal} remoteData={remoteData} />
                 <div className="container">
                 {/* Datas */}
                 {irlists.length > 0 ? (

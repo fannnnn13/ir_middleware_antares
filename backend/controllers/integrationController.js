@@ -39,6 +39,28 @@ export const getIntegrationById = async (req, res) => {
 
 export const createIntegration = async (req, res) => {
     try {
+        const { integration_name, device_id } = req.body;
+
+        const existingIntegrationName = await Integration.findOne({
+            where: { integration_name },
+        });
+
+        if (existingIntegrationName) {
+            return res
+                .status(409)
+                .json({ message: "Integration name already exists" });
+        }
+
+        const existingIntegrationDevice = await Integration.findOne({
+            where: { device_id },
+        });
+
+        if (existingIntegrationDevice) {
+            return res
+                .status(409)
+                .json({ message: "Device already registered" });
+        }
+
         await Integration.create(req.body);
         res.status(201).json({ message: "Integration created successfully" });
     } catch (error) {

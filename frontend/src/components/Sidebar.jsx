@@ -31,7 +31,7 @@ const Sidebar = () => {
                                     <Link
                                         to="/dashboard"
                                         className={`flex items-center px-6 py-4 text-black bg-white relative ${
-                                            activeItem === "/dashboard"
+                                            activeItem.startsWith("/dashboard")
                                                 ? "border-l-14 border-orange-600"
                                                 : "hover:bg-orange-300"
                                         }`}
@@ -44,7 +44,7 @@ const Sidebar = () => {
                                     <Link
                                         to="/device-manager"
                                         className={`flex items-center px-6 py-4 text-black bg-white relative ${
-                                            activeItem === "/device-manager" || "/device-manager/details:uuid"
+                                            activeItem.startsWith("/device-manager")
                                                 ? "border-l-14 border-orange-600"
                                                 : "hover:bg-orange-300"
                                         }`}
@@ -57,7 +57,7 @@ const Sidebar = () => {
                                     <Link
                                         to="/quick-match-manager"
                                         className={`flex items-center px-6 py-4 text-black bg-white relative ${
-                                            activeItem === "/quick-match-manager"
+                                            activeItem.startsWith("/quick-match-manager")
                                                 ? "border-l-14 border-orange-600"
                                                 : "hover:bg-orange-300"
                                         }`}
@@ -70,7 +70,7 @@ const Sidebar = () => {
                                     <Link
                                         to="/integration-menu"
                                         className={`flex items-center px-6 py-4 text-black bg-white relative ${
-                                            activeItem === "/integration-menu"
+                                            activeItem.startsWith("/integration-menu")
                                                 ? "border-l-14 border-orange-600"
                                                 : "hover:bg-orange-300"
                                         }`}

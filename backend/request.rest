@@ -12,19 +12,17 @@ Content-Type: application/json
 GET http://localhost:5000/users
 
 ###
-GET http://localhost:5000/users/f547d79a-47bd-4b30-8a00-4604a11e0aa9
+GET http://localhost:5000/users/50421e80-8a79-4920-bc7a-3eb573220865
 
 
 # Kalo mau ganti password isi semua data yang ada
 ###
-PATCH http://localhost:5000/users/ba38efbd-0f9e-4c98-b2b6-2c87bbb84a19
+PATCH http://localhost:5000/users/50421e80-8a79-4920-bc7a-3eb573220865
 Content-Type: application/json
 
 {
-    "full_name": "John Doe",
-    "username": "JohnDoe13",
-    "password": "123456",
-    "conf_password": "123456"
+    "password": "1234567",
+    "conf_password": "1234567"
 }
 
 ###
@@ -36,7 +34,7 @@ Content-Type: application/json
 
 {
     "username": "Johnwang13",
-    "password": "123456"
+    "password": "1234567"
 }
 
 ###
@@ -52,14 +50,14 @@ DELETE http://localhost:5000/logout
 GET http://localhost:5000/brands
 
 ###
-GET http://localhost:5000/brands/2be71346-0b48-45b5-8d70-752645e2a525
+GET http://localhost:5000/brands/8dba42de-8a35-4667-80d5-60936272ba92
 
 ###
 POST http://localhost:5000/brands
 Content-Type: application/json
 
 {
-    "brand_name": "ACL"
+    "brand_name": "Panasonic"
 }
 
 ###
@@ -91,7 +89,7 @@ Content-Type: application/json
     "access_key": "123456",
     "antares_app_name": "ir-app-1",
     "antares_device_name": "ir-device-1",
-    "device_id": 1
+    "device_id": 18
 }
 
 ###
@@ -115,15 +113,15 @@ DELETE http://localhost:5000/integrations/1b3b3b3b-1b3b-1b3b-1b3b-1b3b3b3b3b3b
 GET http://localhost:5000/remotes
 
 ###
-GET http://localhost:5000/remotes/d87a4d0e-0e24-403c-a176-1c66b027050d
+GET http://localhost:5000/remotes/33ca1b01-33b7-484b-843d-0fd3a3ecd863
 
 ###
 POST http://localhost:5000/remotes
 Content-Type: application/json
 
 {
-    "device_name": "Collaboration Room Antares",
-    "serial_number": "SN2121212S92J"
+    "device_name": "Meeting Room Telkom Witel",
+    "serial_number": "SN21212AS1221JS8"
 }
 
 ###
@@ -132,11 +130,11 @@ PATCH http://localhost:5000/remotes/d017d595-c7a7-45be-9844-edc2bcc6a4d4
 Content-Type: application/json
 
 {
-    "device_name": "Meeting Room Komatsu 2"
+    "device_name": "Meeting Room Komatsu "
 }
 
 ###
-DELETE http://localhost:5000/remotes/d017d595-c7a7-45be-9844-edc2bcc6a4d4
+DELETE http://localhost:5000/remotes/33ca1b01-33b7-484b-843d-0fd3a3ecd863
 
 ###
 GET http://localhost:5000/details/617122d9-ef36-47ad-946b-8b5898ca4c3e
@@ -157,9 +155,9 @@ POST http://localhost:5000/irlist
 Content-Type: application/json
 
 {
-    "brand_id": 1,
-    "variant_id": 2,
-    "device_id": 2
+    "brand_id": 8,
+    "variant_id": 3,
+    "device_id": 6
 }
 
 ###
@@ -178,28 +176,29 @@ GET http://localhost:5000/irlist/925aeac6-784c-4440-a5f9-8de257f4e90f
 GET http://localhost:5000/variants
 
 ###
-GET http://localhost:5000/variants/1
+GET http://localhost:5000/variants/43917030-ab8d-4be7-904e-27eebf1ec158
 
 ###
 POST http://localhost:5000/variants
 Content-Type: application/json
 
 {
-    "brand_id": 1,
-    "variant_name": "AC Gree ON",
+    "brand_id": 10,
+    "variant_name": "AC ON",
     "raw_data1": "uint16_t rawData[73] = {4704, 4770,  638, 1634,  614, 1618,  614, 1620,  616, 486,  614, 486,  616, 486,  614, 486,  614, 486,  614, 1620,  614, 1618,  614, 1620,  616, 486,  614, 486,  614, 486,  614, 486,  614, 486,  614, 486,  614, 1620,  616, 486,  614, 486,  616, 486,  614, 486,  614, 486,  614, 488,  614, 1620,  614, 486,  614, 1620,  614, 1618,  614, 1620,  614, 1618,  614, 1620,  614, 1618,  614, 48538,  4654, 4522,  616, 488,  614};",
     "raw_data2": "uint16_t rawData[73] = {4704, 4770,  638, 1634,  614, 1618,  614, 1620,  616, 486,  614, 486,  616, 486,  614, 486,  614, 486,  614, 1620,  614, 1618,  614, 1620,  616, 486,  614, 486,  614, 486,  614, 486,  614, 486,  614, 486,  614, 1620,  616, 486,  614, 486,  616, 486,  614, 486,  614, 486,  614, 488,  614, 1620,  614, 486,  614, 1620,  614, 1618,  614, 1620,  614, 1618,  614, 1620,  614, 1618,  614, 48538,  4654, 4522,  616, 488,  614};"
 
 }
 
 ###
-PATCH http://localhost:5000/variants/e855864c-98b3-45cb-837b-e934a3ce0dd5
+PATCH http://localhost:5000/variants/c32b2e96-09d4-4b38-b9c8-4c26fbdb98e3
 Content-Type: application/json
 
 {
-    "brand_id": 4,
-    "variant_name": "AC Gree 2 PK",
-    "raw_data1": "uint16_t rawData[71] = {9108, 4502,  606, 516,  606, 482,  608, 482,  608, 480,  608, 482,  634, 1576,  606, 482,  606, 482,  608, 1602,  608, 1602,  582, 1626,  608, 1602,  608, 1602,  608, 480,  608, 1602,  608, 1604,  608, 482,  632, 1576,  584, 506,  608, 480,  608, 1602,  608, 482,  608, 482,  608, 482,  608, 1602,  608, 482,  608, 1602,  608, 1602,  608, 480,  610, 1600,  608, 1602,  632, 1578,  608, 41302,  9162, 2194,  610};"
+    "brand_id": 11,
+    "variant_name": "AC ON",
+    "raw_data1": "uint16_t rawData[279] = {9250, 4608,  598, 1686,  676, 1604,  676, 528,  650, 1630,  648, 554,  674, 528,  674, 528,  674, 528,  674, 528,  650, 1630,  650, 1630,  674, 528,  650, 554,  676, 528,  676, 528,  674, 528,  676, 528,  650, 552,  676, 528,  674, 528,  676, 526,  650, 1630,  674, 528,  674, 528,  676, 528,  648, 554,  676, 528,  676, 530,  672, 1604,  674, 528,  676, 1604,  676, 528,  650, 554,  674, 1604,  674, 528,  674, 20462,  700, 564,  650, 554,  676, 528,  674, 528,  676, 1604,  676, 528,  676, 526,  676, 526,  676, 526,  676, 526,  676, 528,  676, 528,  674, 528,  676, 1604,  674, 528,  676, 528,  676, 526,  676, 526,  676, 528,  650, 554,  676, 528,  674, 528,  674, 528,  676, 528,  676, 528,  676, 528,  676, 528,  676, 526,  676, 526,  676, 1604,  674, 1606,  676, 1604,  674, 40906,  9252, 4608,  648, 1636,  650, 1630,  674, 528,  676, 1602,  650, 554,  650, 554,  676, 526,  676, 528,  676, 528,  674, 1604,  676, 1604,  650, 552,  676, 528,  676, 528,  676, 528,  674, 528,  650, 554,  674, 528,  676, 528,  676, 526,  676, 528,  676, 1604,  676, 528,  676, 528,  676, 528,  676, 528,  674, 528,  676, 528,  676, 1604,  674, 1606,  648, 1630,  650, 552,  650, 552,  676, 1606,  648, 554,  676, 20432,  642, 610,  650, 554,  676, 528,  676, 528,  674, 528,  676, 528,  674, 528,  674, 528,  676, 526,  650, 554,  676, 526,  676, 528,  674, 528,  674, 528,  650, 554,  678, 524,  676, 526,  676, 528,  650, 554,  676, 528,  676, 526,  676, 528,  674, 528,  676, 528,  650, 554,  676, 528,  674, 528,  676, 528,  674, 1606,  674, 1604,  676, 526,  676, 1604,  676};",
+    "raw_data2": ""
 }
 
 ###

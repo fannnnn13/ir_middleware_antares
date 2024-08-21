@@ -48,26 +48,40 @@ export const createUser = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-    const user = await Users.findOne({
-        where: {
-            uuid: req.params.uuid,
-        },
-    });
-    if (!user) return res.status(404).json({ message: "User not found" });
-    const { full_name, username, password, conf_password } = req.body;
-    let hashPassword;
-    if (password === "" || password === null) {
-        hashPassword = user.password;
-    } else {
-        hashPassword = await bcrypt.hash(password, await bcrypt.genSalt(10));
-    }
-    if (password !== conf_password)
-        return res.status(400).json({ message: "Password does not match" });
     try {
+        const user = await Users.findOne({
+            where: {
+                uuid: req.params.uuid,
+            },
+        });
+
+        if (!user) return res.status(404).json({ message: "User not found" });
+
+        const { full_name, username, password, conf_password } = req.body;
+
+        let hashPassword = user.password;
+
+        if (password) {
+            if (password !== conf_password) {
+                return res
+                    .status(400)
+                    .json({ message: "Password does not match" });
+            }
+
+            try {
+                const salt = await bcrypt.genSalt(10);
+                hashPassword = await bcrypt.hash(password, salt);
+            } catch (error) {
+                return res
+                    .status(500)
+                    .json({ message: "Error hashing password" });
+            }
+        }
+
         await Users.update(
             {
-                full_name: full_name,
-                username: username,
+                full_name: full_name || user.full_name,
+                username: username || user.username,
                 password: hashPassword,
             },
             {
@@ -76,11 +90,50 @@ export const updateUser = async (req, res) => {
                 },
             }
         );
-        res.status(201).json({ message: "User updated successfully" });
+
+        return res.status(200).json({ message: "User updated successfully" });
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        return res.status(500).json({ message: error.message });
     }
 };
+
+// export const updateUser = async (req, res) => {
+//     const user = await Users.findOne({
+//         where: {
+//             uuid: req.params.uuid,
+//         },
+//     });
+//     if (!user) return res.status(404).json({ message: "User not found" });
+
+//     const { full_name, username, password, conf_password } = req.body;
+
+//     let hashPassword;
+
+//     if (password === "" || password === null) {
+//         hashPassword = user.password;
+//     } else {
+//         hashPassword = await bcrypt.hash(password, await bcrypt.genSalt(10));
+//     }
+//     if (password !== conf_password)
+//         return res.status(400).json({ message: "Password does not match" });
+//     try {
+//         await Users.update(
+//             {
+//                 full_name: full_name,
+//                 username: username,
+//                 password: hashPassword,
+//             },
+//             {
+//                 where: {
+//                     id: user.id,
+//                 },
+//             }
+//         );
+//         res.status(201).json({ message: "User updated successfully" });
+//     } catch (error) {
+//         res.status(400).json({ message: error.message });
+//     }
+// };
 
 export const deleteUser = async (req, res) => {
     const user = await Users.findOne({

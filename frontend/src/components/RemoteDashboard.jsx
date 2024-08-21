@@ -40,7 +40,7 @@ const RemoteDashboard = () => {
                         <input
                             type="search"
                             id="default-search"
-                            className="block w-full px-4 py-2 ps-10 text-sm text-black border border-gray-300 rounded-md bg-white focus:outline-none focus:border-orange-500 focus:border-2"
+                            className="block w-full px-4 py-3 ps-10 text-sm text-black border border-gray-300 rounded-md bg-white focus:outline-none focus:border-orange-500 focus:border-2"
                             placeholder="Search"
                             onChange={(e) => setSearch(e.target.value.toLowerCase())}
                             required
@@ -53,7 +53,7 @@ const RemoteDashboard = () => {
                 {remotes.filter((remote) => {
                     return search.toLowerCase() === '' || remote.serial_number.toLowerCase().includes(search) || remote.device_name.toLowerCase().includes(search);
                 }).map((remote) => (
-                    <Link to={`/details-device/${remote.uuid}`} key={remote.uuid} className='block'>
+                    <Link to={`/dashboard/details/${remote.uuid}`} key={remote.uuid} className='block'>
                         <div className=' p-6 content-between grid grid-cols-3 border border-black rounded-md hover:shadow-myBox hover:duration-500'>
                             <img src={LogoRemote} alt="Logo Remote" className="w-11"/>
                             <div className="container col-span-2">

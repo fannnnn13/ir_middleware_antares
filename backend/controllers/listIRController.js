@@ -128,7 +128,7 @@ export const deleteIRList = async (req, res) => {
     try {
         await ListIR.destroy({
             where: {
-                uuid: req.params.id,
+                uuid: req.params.uuid,
             },
         });
         res.status(200).json({ message: "IR List deleted successfully" });

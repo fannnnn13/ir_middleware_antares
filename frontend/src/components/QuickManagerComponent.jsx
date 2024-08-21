@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 import AddBrand from './modal/AddBrand';
-import AlertMessage from './alert/AlertMessage';
 import UpdateBrand from './modal/UpdateBrand';
+import AlertMessage from './alert/AlertMessage';
 
 
 const QuickManagerComponent = () => {
@@ -102,7 +102,7 @@ const QuickManagerComponent = () => {
                                             <td className='text-lg font-medium place-content-center ml-6'>{brand.brand_name}</td>
                                             <td className='grid grid-cols-3 gap-4 place-content-end mr-6'>
                                                 <button onClick={() => openUpdateModal(brand)} className='text-white text-xs text-center bg-orange-500 px-4 py-2 rounded-md hover:bg-orange-700'>Edit</button>
-                                                <Link to={`/brands/variants/${brand.uuid}`} className='text-orange-500 text-xs text-center bg-white px-4 py-2 rounded-md border border-orange-500 hover:bg-orange-400 hover:text-white'>List Varian</Link>
+                                                <Link to={`/quick-match-manager/variants/${brand.uuid}`} className='text-orange-500 text-xs text-center bg-white px-4 py-2 rounded-md border border-orange-500 hover:bg-orange-400 hover:text-white'>List Varian</Link>
                                                 <button onClick={() => deleteBrand(brand.uuid)} className='text-white text-xs text-center bg-red-500 px-4 py-2 rounded-md hover:bg-red-800'>Hapus</button>
                                             </td>
                                         </tr>

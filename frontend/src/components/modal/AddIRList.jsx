@@ -113,7 +113,7 @@ const AddIRListModal = ({ isOpen, onClose, selectedDeviceId, selectedBrandId, se
             <form onSubmit={handleSubmit} className="p-4">
                 <div className="mb-4">
                     <label htmlFor="device" className="block text-gray-700 text-sm font-bold mb-2">
-                        Nama Remote(Otomatis)<span className='text-orange-600'> *</span>
+                        Nama Remote (Otomatis)<span className='text-orange-600'> *</span>
                     </label>
                     <select
                         id="device"

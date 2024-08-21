@@ -7,15 +7,15 @@ import {
     deleteIntegration,
     searchIntegrations,
 } from "../controllers/integrationController.js";
-import { verifyUser } from "../middleware/authUser.js";
+// import { verifyUser } from "../middleware/authUser.js";
 
 const router = express.Router();
 
-router.get("/integrations", verifyUser, getIntegrations);
-router.get("/integrations/:uuid", verifyUser, getIntegrationById);
-router.post("/integrations", verifyUser, createIntegration);
-router.patch("/integrations/:uuid", verifyUser, updateIntegration);
-router.delete("/integrations/:uuid", verifyUser, deleteIntegration);
-router.get("/searchintegrations", verifyUser, searchIntegrations);
+router.get("/integrations", getIntegrations);
+router.get("/integrations/:uuid", getIntegrationById);
+router.post("/integrations", createIntegration);
+router.patch("/integrations/:uuid", updateIntegration);
+router.delete("/integrations/:uuid", deleteIntegration);
+router.get("/searchintegrations", searchIntegrations);
 
 export default router;

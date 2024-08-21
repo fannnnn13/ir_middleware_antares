@@ -4,8 +4,8 @@ import Modal from '../Modal'
 import AlertMessage from '../alert/AlertMessage'
 
 const UpdateRemoteModal = ({ isOpen, onClose, remoteData }) => {
-    const [deviceName, setDeviceName] = useState('');
-    const [serialNumber, setSerialNumber] = useState('');
+    const [deviceName, setDeviceName] = useState(remoteData.deviceName || '');
+    const [serialNumber, setSerialNumber] = useState(remoteData.serial_number || '');
     const [isAlertMessageOpen, setIsAlertMessageOpen] = useState(false);
     const [message, setMessage] = useState('');
     const [isError, setIsError] = useState(false);
@@ -14,8 +14,8 @@ const UpdateRemoteModal = ({ isOpen, onClose, remoteData }) => {
 
     useEffect(() => {
         if (remoteData) {
-            setDeviceName(remoteData.device_name || '');
-            setSerialNumber(remoteData.serial_number || '');
+            setDeviceName(remoteData.deviceName || '');
+            setSerialNumber(remoteData.serialNumber || '');
         }
     }, [remoteData]);
 
@@ -29,8 +29,6 @@ const UpdateRemoteModal = ({ isOpen, onClose, remoteData }) => {
             setMessage('Sukses diupdate');
             setIsError(false);
             setIsAlertMessageOpen(true);
-            setDeviceName('');
-            setSerialNumber('');
             onClose();
             window.location.reload();
         } catch (error) {
