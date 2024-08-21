@@ -44,20 +44,45 @@ export const createBrand = async (req, res) => {
 };
 
 export const updateBrand = async (req, res) => {
+    // try {
+    //     const brand = await Brands.findOne({
+    //         where: {
+    //             uuid: req.params.uuid,
+    //         },
+    //     });
+
+    //     if (!brand) return res.status(404).json({ message: "Brand not found" });
+
+    //     await Brands.update(req.body, {
+    //         where: {
+    //             uuid: req.params.uuid,
+    //         },
+    //     });
+    //     res.status(200).json({ message: "Brand updated successfully" });
+    // } catch (error) {
+    //     res.status(500).json({ message: error.message });
+    // }
     try {
-        const brand = await Brands.findOne({
+        const { uuid } = req.params;
+        const { brand_name } = req.body;
+
+        const existingBrand = await Brands.findOne({
             where: {
-                uuid: req.params.uuid,
+                brand_name,
+                uuid: { [Op.ne]: uuid },
             },
         });
 
-        if (!brand) return res.status(404).json({ message: "Brand not found" });
+        if (existingBrand) {
+            return res.status(400).json({ message: "Brand already exists" });
+        }
 
         await Brands.update(req.body, {
             where: {
-                uuid: req.params.uuid,
+                uuid,
             },
         });
+
         res.status(200).json({ message: "Brand updated successfully" });
     } catch (error) {
         res.status(500).json({ message: error.message });

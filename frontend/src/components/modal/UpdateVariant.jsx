@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Modal from '../Modal';
+import AlertMessage from '../alert/AlertMessage';
 
 const UpdateVariantModal = ({ isOpen, onClose, variantData }) => {
     const [brands, setBrands] = useState([]);
@@ -8,6 +9,10 @@ const UpdateVariantModal = ({ isOpen, onClose, variantData }) => {
     const [variantName, setVariantName] = useState(variantData.variant_name || '');
     const [rawData1, setRawData1] = useState(variantData.raw_data1 || '');
     const [rawData2, setRawData2] = useState(variantData.raw_data2 || '');
+
+    const [isAlertMessageOpen, setIsAlertMessageOpen] = useState(false);
+    const [message, setMessage] = useState('');
+    const [isError, setIsError] = useState(false);
 
     useEffect(() => {
         const fetchBrands = async () => {
@@ -36,21 +41,40 @@ const UpdateVariantModal = ({ isOpen, onClose, variantData }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.patch(`http://localhost:5000/variants/${variantData.uuid}`, {
+            const response = await axios.patch(`http://localhost:5000/variants/${variantData.uuid}`, {
                 brand_id: brandId,
                 variant_name: variantName,
                 raw_data1: rawData1,
                 raw_data2: rawData2,
             });
-            alert('Variant updated successfully');
+            
+            if (response.status === 200) {
+                setMessage('Sukses diupdate');
+                setIsError(false);
+            }
+            setIsAlertMessageOpen(true);
             onClose(); // Close modal after submission
             window.location.reload(); 
         } catch (error) {
-            console.error('Error updating variant:', error);
+            if (error.response) {
+                if (error.response.status === 400) {
+                    setMessage('Varian sudah ada di brand ini');
+                } else {
+                    setMessage('Gagal ditambahkan: ' + error.response.data.message);
+                }
+            } else if (error.request) {
+                setMessage('Tidak ada respon dari server');
+            } else {
+                setMessage('Terjadi kesalahan: ' + error.message);
+            }
+            setIsError(true);
+            setIsAlertMessageOpen(true);
+            console.error('Error submitting form:', error);
         }
     };
 
     return (
+        <>
         <Modal isOpen={isOpen} onClose={onClose}>
             <h2 className="text-2xl font-bold p-4">Update Varian</h2>
             <form onSubmit={handleSubmit} className="p-4">
@@ -121,6 +145,13 @@ const UpdateVariantModal = ({ isOpen, onClose, variantData }) => {
                 </button>
             </form>
         </Modal>
+        <AlertMessage 
+            isOpen={isAlertMessageOpen}
+            onClose={() => setIsAlertMessageOpen(false)}
+            message={message}
+            isError={isError}
+        />
+        </>
     );
 };
 

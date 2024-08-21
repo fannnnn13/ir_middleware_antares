@@ -1,3 +1,4 @@
+import { Op } from "sequelize";
 import VariantIR from "../models/variantIRModel.js";
 import Brands from "../models/brandModel.js";
 
@@ -87,21 +88,49 @@ export const createVariant = async (req, res) => {
 };
 
 export const updateVariant = async (req, res) => {
+    // try {
+    //     const variant = await VariantIR.findOne({
+    //         where: {
+    //             uuid: req.params.uuid,
+    //         },
+    //     });
+
+    //     if (!variant)
+    //         return res.status(404).json({ message: "Variant not found" });
+
+    //     await VariantIR.update(req.body, {
+    //         where: {
+    //             uuid: req.params.uuid,
+    //         },
+    //     });
+    //     res.status(200).json({ message: "Variant updated successfully" });
+    // } catch (error) {
+    //     res.status(500).json({ message: error.message });
+    // }
     try {
-        const variant = await VariantIR.findOne({
+        const { uuid } = req.params;
+        const { brand_id, variant_name } = req.body;
+
+        const existingVariant = await VariantIR.findOne({
             where: {
-                uuid: req.params.uuid,
+                brand_id,
+                variant_name,
+                uuid: { [Op.ne]: uuid },
             },
         });
 
-        if (!variant)
-            return res.status(404).json({ message: "Variant not found" });
+        if (existingVariant) {
+            return res
+                .status(400)
+                .json({ message: "Variant already exists for this brand" });
+        }
 
         await VariantIR.update(req.body, {
             where: {
-                uuid: req.params.uuid,
+                uuid,
             },
         });
+
         res.status(200).json({ message: "Variant updated successfully" });
     } catch (error) {
         res.status(500).json({ message: error.message });

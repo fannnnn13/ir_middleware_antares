@@ -69,21 +69,61 @@ export const createIntegration = async (req, res) => {
 };
 
 export const updateIntegration = async (req, res) => {
+    // try {
+    //     const integration = await Integration.findOne({
+    //         where: {
+    //             uuid: req.params.uuid,
+    //         },
+    //     });
+
+    //     if (!integration)
+    //         return res.status(404).json({ message: "Integration not found" });
+
+    //     await Integration.update(req.body, {
+    //         where: {
+    //             uuid: req.params.uuid,
+    //         },
+    //     });
+    //     res.status(200).json({ message: "Integration updated successfully" });
+    // } catch (error) {
+    //     res.status(500).json({ message: error.message });
+    // }
     try {
-        const integration = await Integration.findOne({
+        const { uuid } = req.params;
+        const { integration_name, device_id } = req.body;
+
+        const existingIntegrationName = await Integration.findOne({
             where: {
-                uuid: req.params.uuid,
+                integration_name,
+                uuid: { [Op.ne]: uuid },
             },
         });
 
-        if (!integration)
-            return res.status(404).json({ message: "Integration not found" });
+        const existingDevice = await Integration.findOne({
+            where: {
+                device_id,
+                uuid: { [Op.ne]: uuid },
+            },
+        });
+
+        if (existingIntegrationName) {
+            return res
+                .status(400)
+                .json({ message: "Integration name already exists" });
+        }
+
+        if (existingDevice) {
+            return res
+                .status(400)
+                .json({ message: "Device already registered" });
+        }
 
         await Integration.update(req.body, {
             where: {
-                uuid: req.params.uuid,
+                uuid,
             },
         });
+
         res.status(200).json({ message: "Integration updated successfully" });
     } catch (error) {
         res.status(500).json({ message: error.message });

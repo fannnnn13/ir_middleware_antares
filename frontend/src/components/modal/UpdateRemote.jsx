@@ -22,20 +22,40 @@ const UpdateRemoteModal = ({ isOpen, onClose, remoteData }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.patch(`http://localhost:5000/remotes/${remoteData.uuid}`, {
+            const response = await axios.patch(`http://localhost:5000/remotes/${remoteData.uuid}`, {
                 device_name: deviceName,
                 serial_number: serialNumber
             });
-            setMessage('Sukses diupdate');
-            setIsError(false);
+
+            if(response.status === 200) {
+                setMessage('Sukses diupdate');
+                setIsError(false);
+            }
+
             setIsAlertMessageOpen(true);
             onClose();
             window.location.reload();
         } catch (error) {
-            setMessage('Gagal diupdate');
+            if (error.response) {
+                if (error.response.status === 400) {
+                    if (error.response.data.message === 'Device name already exists') {
+                        setMessage('Nama remote/device sudah ada');
+                    } else if (error.response.data.message === 'Serial number already exists') {
+                        setMessage('Serial number sudah ada');
+                    } else {
+                        setMessage('Remote sudah ada');
+                    }
+                } else {
+                    setMessage('Gagal ditambahkan: ' + error.response.data.message);
+                }
+            } else if (error.request) {
+                setMessage('Tidak ada respon dari server');
+            } else {
+                setMessage('Terjadi kesalahan: ' + error.message);
+            }
             setIsError(true);
             setIsAlertMessageOpen(true);
-            console.error('Error updating remote:', error);
+            console.error('Error submitting form:', error);
         }
     };
 

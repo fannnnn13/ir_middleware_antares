@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Modal from '../Modal'
+import AlertMessage from '../alert/AlertMessage'
 
 const UpdateIntegrationModal = ({ isOpen, onClose, integrationData }) => {
     const [devices, setDevices] = useState([]);
@@ -9,6 +10,13 @@ const UpdateIntegrationModal = ({ isOpen, onClose, integrationData }) => {
     const [antaresAppName, setAntaresAppName] = useState(integrationData.antares_app_name || '');
     const [antaresDeviceName, setAntaresDeviceName] = useState(integrationData.antares_device_name || '');
     const [deviceId, setDeviceId] = useState(integrationData.device_id || '');
+
+    // Alert Message
+    const [isAlertMessageOpen, setIsAlertMessageOpen] = useState(false);
+    const [message, setMessage] = useState('');
+    const [isError, setIsError] = useState(false);
+
+    const closeModal = () => setIsAlertMessageOpen(false);
 
     useEffect(() => {
         const fetchDevices = async () => {
@@ -37,22 +45,49 @@ const UpdateIntegrationModal = ({ isOpen, onClose, integrationData }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.patch(`http://localhost:5000/integrations/${integrationData.uuid}`, {
+            const response = await axios.patch(`http://localhost:5000/integrations/${integrationData.uuid}`, {
                 integration_name: integrationName,
                 access_key: accessKey,
                 antares_app_name: antaresAppName,
                 antares_device_name: antaresDeviceName,
                 device_id: deviceId,
             });
-            alert('Integration updated successfully');
+
+            if(response.status === 200) {
+                setMessage('Sukses diupdate');
+                setIsError(false);
+            }
+
+            setIsAlertMessageOpen(true);
+            setIntegrationName('');
             onClose();
             window.location.reload();
         } catch (error) {
-            console.error('Error updating integration:', error);
+            if (error.response) {
+                if (error.response.status === 400) {
+                    if (error.response.data.message === 'Integration name already exists') {
+                        setMessage('Nama Integrasi sudah ada');
+                    } else if (error.response.data.message === 'Device already registered') {
+                        setMessage('Device sudah terdaftar/terintegrasi');
+                    } else {
+                        setMessage('Integrasi sudah ada');
+                    }
+                } else {
+                    setMessage('Gagal ditambahkan: ' + error.response.data.message);
+                }
+            } else if (error.request) {
+                setMessage('Tidak ada respon dari server');
+            } else {
+                setMessage('Terjadi kesalahan: ' + error.message);
+            }
+            setIsError(true);
+            setIsAlertMessageOpen(true);
+            console.error('Error submitting form:', error);
         }
     };
 
     return (
+        <>
         <Modal isOpen={isOpen} onClose={onClose}>
             <h2 className="text-2xl font-bold p-4">Update Integrasi</h2>
             <form onSubmit={handleSubmit} className="p-4">
@@ -136,6 +171,13 @@ const UpdateIntegrationModal = ({ isOpen, onClose, integrationData }) => {
                 </button>
             </form>
         </Modal>
+        <AlertMessage 
+            isOpen={isAlertMessageOpen}
+            onClose={closeModal}
+            message={message}
+            isError={isError}
+        />
+        </>
     )
 }
 

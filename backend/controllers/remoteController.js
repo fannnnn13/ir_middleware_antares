@@ -78,21 +78,61 @@ export const createRemote = async (req, res) => {
 };
 
 export const updateRemote = async (req, res) => {
+    // try {
+    //     const remote = await Remote.findOne({
+    //         where: {
+    //             uuid: req.params.uuid,
+    //         },
+    //     });
+
+    //     if (!remote)
+    //         return res.status(404).json({ message: "Remote not found" });
+
+    //     await Remote.update(req.body, {
+    //         where: {
+    //             uuid: req.params.uuid,
+    //         },
+    //     });
+    //     res.status(200).json({ message: "Remote updated successfully" });
+    // } catch (error) {
+    //     res.status(500).json({ message: error.message });
+    // }
     try {
-        const remote = await Remote.findOne({
+        const { uuid } = req.params;
+        const { device_name, serial_number } = req.body;
+
+        const existingDeviceName = await Remote.findOne({
             where: {
-                uuid: req.params.uuid,
+                device_name,
+                uuid: { [Op.ne]: uuid },
             },
         });
 
-        if (!remote)
-            return res.status(404).json({ message: "Remote not found" });
+        const existingSerialNumber = await Remote.findOne({
+            where: {
+                serial_number,
+                uuid: { [Op.ne]: uuid },
+            },
+        });
+
+        if (existingDeviceName) {
+            return res
+                .status(400)
+                .json({ message: "Device name already exists" });
+        }
+
+        if (existingSerialNumber) {
+            return res
+                .status(400)
+                .json({ message: "Serial number already exists" });
+        }
 
         await Remote.update(req.body, {
             where: {
-                uuid: req.params.uuid,
+                uuid,
             },
         });
+
         res.status(200).json({ message: "Remote updated successfully" });
     } catch (error) {
         res.status(500).json({ message: error.message });

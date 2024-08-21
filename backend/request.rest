@@ -148,8 +148,7 @@ GET http://localhost:5000/remotesearch
 GET http://localhost:5000/irlist
 
 ###
-GET http://localhost:5000/irlist/af129261-26de-40c3-8ac9-ae4f0ac60256
-
+GET http://localhost:5000/irlist/e1ab150d-29cc-4160-9009-94df0301745f
 ###
 POST http://localhost:5000/irlist
 Content-Type: application/json
@@ -161,7 +160,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5000/irlist/1
+DELETE http://localhost:5000/irlist/e1ab150d-29cc-4160-9009-94df0301745f
 
 ###
 GET http://localhost:5000/irlist/925aeac6-784c-4440-a5f9-8de257f4e90f

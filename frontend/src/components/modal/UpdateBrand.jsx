@@ -21,20 +21,34 @@ const UpdateBrandModal = ({ isOpen, onClose, brandData }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.patch(`http://localhost:5000/brands/${brandData.uuid}`, {
+            const response = await axios.patch(`http://localhost:5000/brands/${brandData.uuid}`, {
                 brand_name: brandName,
             });
-            setMessage('Sukses diupdate');
-            setIsError(false);
+
+            if (response.status === 200) {
+                setMessage('Sukses diupdate');
+                setIsError(false);
+            }
+
             setIsAlertMessageOpen(true);
             setBrandName('');
             onClose();
             window.location.reload();
         } catch (error) {
-            setMessage('Gagal diupdate');
+            if (error.response) {
+                if (error.response.status === 400) {
+                    setMessage('Brand sudah ada');
+                } else {
+                    setMessage('Gagal diupdate: ' + error.response.data.message);
+                }
+            } else if (error.request) {
+                setMessage('Tidak ada respon dari server');
+            } else {
+                setMessage('Terjadi kesalahan: ' + error.message);
+            }
             setIsError(true);
             setIsAlertMessageOpen(true);
-            console.error('Error updating brand:', error);
+            console.error('Error submitting form:', error);
         }
     };
 

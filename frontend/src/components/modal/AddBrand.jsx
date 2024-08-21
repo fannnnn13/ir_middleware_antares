@@ -20,16 +20,24 @@ const AddBrandModal = ({ isOpen, onClose }) => {
             if (response.status === 201) {
                 setMessage('Sukses ditambahkan');
                 setIsError(false);
-            } else if (response.status === 409) {
-                setMessage('Brand sudah ada');
-                setIsError(true);
-            }
+            } 
+
             setIsAlertMessageOpen(true);
             setBrandName('');
             onClose();
             window.location.reload();
         } catch (error) {
-            setMessage('Gagal ditambahkan');
+            if (error.response) {
+                if (error.response.status === 409) {
+                    setMessage('Brand sudah ada');
+                } else {
+                    setMessage('Gagal ditambahkan: ' + error.response.data.message);
+                }
+            } else if (error.request) {
+                setMessage('Tidak ada respon dari server');
+            } else {
+                setMessage('Terjadi kesalahan: ' + error.message);
+            }
             setIsError(true);
             setIsAlertMessageOpen(true);
             console.error('Error submitting form:', error);
