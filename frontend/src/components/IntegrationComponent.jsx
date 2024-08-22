@@ -109,12 +109,12 @@ const IntegrationComponent = () => {
                         <table className='table-fixed w-full'>
                             <thead className='bg-orange-400 text-white'>
                                 <tr className=''>
-                                    <th className='w-1/6 font-semibold text-start px-7 py-5'>Nama Integrasi</th>
-                                    <th className='w-1/6 font-semibold text-start px-6'>Access Key</th>
-                                    <th className='w-1/6 font-semibold text-start'>Application Name</th>
-                                    <th className='w-1/6 font-semibold text-start'>Device Name</th>
-                                    <th className='w-1/6 font-semibold text-start'>SN Device</th>
-                                    <th className='w-1/6 font-semibold text-start'>Actions</th>
+                                    <th className='w-1/6 font-semibold text-lg text-start px-7 py-8'>Nama Integrasi</th>
+                                    <th className='w-1/6 font-semibold text-lg text-start px-6'>Access Key</th>
+                                    <th className='w-1/6 font-semibold text-lg text-start'>Application Name</th>
+                                    <th className='w-1/6 font-semibold text-lg text-start'>Device Name</th>
+                                    <th className='w-1/6 font-semibold text-lg text-start'>SN Device</th>
+                                    <th className='w-1/6 font-semibold text-lg text-start'>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -124,14 +124,14 @@ const IntegrationComponent = () => {
                                         integration.ir_remote?.serial_number.toLowerCase().includes(search);
                                 }).map((integration) => (
                                     <tr key={integration.uuid} className='border-b border-black'>
-                                        <td className='w-1/6 text-xs font-medium text-start p-1 px-7 py-5'>{integration.integration_name}</td>
-                                        <td className='w-1/6 text-xs font-medium text-start p-1 break-words px-6'>{integration.access_key}</td>
-                                        <td className='w-1/6 text-xs font-medium text-start p-1'>{integration.antares_app_name}</td>
-                                        <td className='w-1/6 text-xs font-medium text-start p-1'>{integration.antares_device_name}</td>
-                                        <td className='w-1/6 text-xs font-medium text-start p-1'>{integration.ir_remote.serial_number}</td>
-                                        <td className='w-1/6 text-xs font-medium text-start p-1'>
-                                            <button onClick={() => openUpdateModal(integration)} className='text-white text-xs text-center bg-orange-500 px-4 py-2 rounded-md hover:bg-orange-700 mr-2'>Edit</button>
-                                            <button onClick={() => deleteIntegration(integration.uuid)} className='text-white text-xs text-center bg-red-500 px-4 py-2 rounded-md hover:bg-red-800'>Hapus</button>
+                                        <td className='w-1/6 text-md font-medium text-start p-1 break-words px-7 py-5'>{integration.integration_name}</td>
+                                        <td className='w-1/6 text-md font-medium text-start p-1 break-words px-7 py-5'>{integration.access_key}</td>
+                                        <td className='w-1/6 text-md font-medium text-start p-1 break-words px-7 py-5'>{integration.antares_app_name}</td>
+                                        <td className='w-1/6 text-md font-medium text-start p-1 break-words px-7 py-5'>{integration.antares_device_name}</td>
+                                        <td className='w-1/6 text-md font-medium text-start p-1 break-words px-7 py-5'>{integration.ir_remote.serial_number}</td>
+                                        <td className='w-1/6 text-md font-medium text-start p-1'>
+                                            <button onClick={() => openUpdateModal(integration)} className='text-white text-md text-center bg-orange-500 px-4 py-2 rounded-md hover:bg-orange-700 mr-2'>Edit</button>
+                                            <button onClick={() => deleteIntegration(integration.uuid)} className='text-white text-md text-center bg-red-500 px-4 py-2 rounded-md hover:bg-red-800'>Hapus</button>
                                             <UpdateIntegration isOpen={isUpdateModalOpen} onClose={closeUpdateModal} integrationData={integrationData} /> 
                                         </td>
                                     </tr>
