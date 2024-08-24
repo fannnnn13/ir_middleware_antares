@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
+import { LogoutUser, reset } from '../features/authSlice'
 import Logo from '../img/logo antares IR.png';
+
 
 const Sidebar = () => {
     const location = useLocation();
     const [activeItem, setActiveItem] = useState(location.pathname);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { user } = useSelector((state) => state.auth);
+
+    const logout = () => {
+        dispatch(LogoutUser());
+        dispatch(reset());
+        navigate("/");
+    }
 
     // Update the active item when the location changes
     useEffect(() => {
@@ -85,15 +97,8 @@ const Sidebar = () => {
                         {/* Userbar */}
                         <div className="px-8 py-7 bg-white">
                             <div id="account" className="grid grid-cols-3 mb-6">
-                                <div className="my-auto">
-                                    <img
-                                        src="#"
-                                        alt="User Avatar"
-                                        className="w-12 h-12 rounded-full bg-gray-500"
-                                    />
-                                </div>
-                                <div className="text-black col-span-2">
-                                    <p className="text-lg font-medium">John Doe</p>
+                                <div className="text-black col-span-3">
+                                    {user && <p className="text-lg font-semibold hover:text-orange-500">{user.full_name}</p>}
                                     <p className="text-sm font-normal">Admin</p>
                                 </div>
                             </div>
@@ -121,6 +126,7 @@ const Sidebar = () => {
                                 </button>
                                 <button
                                     type="button"
+                                    onClick={logout}
                                     className="text-white border-2 border-red-500 rounded-md text-lg font-medium w-full py-2 text-center hover:bg-red-500"
                                 >
                                     <Link

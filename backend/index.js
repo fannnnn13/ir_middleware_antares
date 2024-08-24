@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import session from "express-session";
+// import Redis from "redis";
+// import RedisStore from "connect-redis";
 import db from "./config/database.js";
 import SequelizeStore from "connect-session-sequelize";
 import userRoute from "./routes/userRoute.js";
@@ -27,12 +29,13 @@ const store = new sessionStore({
 
 app.use(
     session({
+        store: store,
         secret: process.env.SESSION_SECRET,
         resave: false,
-        saveUninitialized: true,
-        store: store,
+        saveUninitialized: false,
         cookie: {
             secure: "auto",
+            maxAge: 1000 * 60 * 60 * 24,
         },
     })
 );

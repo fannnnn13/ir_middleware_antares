@@ -6,14 +6,14 @@ import {
     updateVariant,
     deleteVariant,
 } from "../controllers/variantIRController.js";
-// import { verifyUser } from "../middleware/authUser.js";
+import { verifyUser } from "../middleware/authUser.js";
 
 const router = express.Router();
 
-router.get("/variants", getVariants);
-router.get("/variants/:uuid", getVariantById);
-router.post("/variants", createVariant);
-router.patch("/variants/:uuid", updateVariant);
-router.delete("/variants/:uuid", deleteVariant);
+router.get("/variants", verifyUser, getVariants);
+router.get("/variants/:uuid", verifyUser, getVariantById);
+router.post("/variants", verifyUser, createVariant);
+router.patch("/variants/:uuid", verifyUser, updateVariant);
+router.delete("/variants/:uuid", verifyUser, deleteVariant);
 
 export default router;

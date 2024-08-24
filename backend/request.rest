@@ -2,10 +2,10 @@ POST http://localhost:5000/users
 Content-Type: application/json
 
 {
-    "full_name": "John Wang",
-    "username": "Johnwang13",
-    "password": "123456",
-    "conf_password": "123456"
+    "full_name": "John John",
+    "username": "johnjohn13",
+    "password": "131313",
+    "conf_password": "131313"
 }
 
 ###
@@ -33,8 +33,8 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "username": "Johnwang13",
-    "password": "1234567"
+    "username": "johnjohn13",
+    "password": "131313"
 }
 
 ###

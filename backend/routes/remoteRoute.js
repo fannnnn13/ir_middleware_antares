@@ -7,15 +7,15 @@ import {
     deleteRemote,
     searchRemotes,
 } from "../controllers/remoteController.js";
-// import { verifyUser } from "../middleware/authUser.js";
+import { verifyUser } from "../middleware/authUser.js";
 
 const router = express.Router();
 
-router.get("/remotes", getRemotes);
-router.get("/remotes/:uuid", getRemoteById);
-router.post("/remotes", createRemote);
-router.patch("/remotes/:uuid", updateRemote);
-router.delete("/remotes/:uuid", deleteRemote);
-router.get("/remotesearch", searchRemotes);
+router.get("/remotes", verifyUser, getRemotes);
+router.get("/remotes/:uuid", verifyUser, getRemoteById);
+router.post("/remotes", verifyUser, createRemote);
+router.patch("/remotes/:uuid", verifyUser, updateRemote);
+router.delete("/remotes/:uuid", verifyUser, deleteRemote);
+router.get("/remotesearch", verifyUser, searchRemotes);
 
 export default router;

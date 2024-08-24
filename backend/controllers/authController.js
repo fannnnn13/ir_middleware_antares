@@ -2,19 +2,39 @@ import Users from "../models/userModel.js";
 import bcrypt from "bcrypt";
 
 export const Login = async (req, res) => {
-    const user = await Users.findOne({
-        where: {
-            username: req.body.username,
-        },
-    });
-    if (!user) return res.status(404).json({ message: "User not found" });
-    const match = await bcrypt.compare(req.body.password, user.password);
-    if (!match) return res.status(400).json({ message: "Wrong password" });
-    req.session.userId = user.uuid;
-    const uuid = user.uuid;
-    const full_name = user.full_name;
-    const username = user.username;
-    res.status(200).json({ uuid, full_name, username });
+    try {
+        const user = await Users.findOne({
+            where: {
+                username: req.body.username,
+            },
+        });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const match = await bcrypt.compare(req.body.password, user.password);
+        if (!match) {
+            return res.status(400).json({ message: "Wrong password" });
+        }
+
+        // Pastikan sesi tidak terganti
+        req.session.regenerate((err) => {
+            if (err) {
+                return res
+                    .status(500)
+                    .json({ message: "Session regeneration failed" });
+            }
+
+            req.session.userId = user.uuid;
+            res.status(200).json({
+                uuid: user.uuid,
+                full_name: user.full_name,
+                username: user.username,
+            });
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 };
 
 export const Me = async (req, res) => {
@@ -35,7 +55,10 @@ export const Me = async (req, res) => {
 
 export const Logout = async (req, res) => {
     req.session.destroy((err) => {
-        if (err) return res.status(400).json({ message: "Can't Logout" });
+        if (err) {
+            return res.status(400).json({ message: "Can't Logout" });
+        }
+        res.clearCookie("connect.sid");
         res.status(200).json({ message: "Logout successfully" });
     });
 };

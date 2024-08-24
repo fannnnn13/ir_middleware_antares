@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
+import Layout from './Layout'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getMe } from '../features/authSlice'
-import Layout from './Layout'
-import ListVariantComponent from '../components/ListVariantComponent'
+import AccountComponent from '../components/AccountComponent'
 
-const ListVariant = () => {
+const Account = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { isError } = useSelector((state) => state.auth);
@@ -22,9 +22,9 @@ const ListVariant = () => {
 
     return (
         <Layout>
-            <ListVariantComponent />
+            <AccountComponent />
         </Layout>
     )
 }
 
-export default ListVariant
+export default Account

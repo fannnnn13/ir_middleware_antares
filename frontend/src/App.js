@@ -6,12 +6,13 @@ import ListVariant from "./pages/ListVariant";
 import DeviceManager from "./pages/DeviceManager";
 import DetailsDeviceManager from "./pages/DetailsDeviceManager";
 import IntegrationMenu from "./pages/IntegrationMenu";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Account from "./pages/Account";
 
 function App() {
     return (
-        <div className="">
+        <div>
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Login />} />
@@ -38,6 +39,7 @@ function App() {
                         path="/integration-menu"
                         element={<IntegrationMenu />}
                     />
+                    <Route path="/account" element={<Account />} />
                 </Routes>
             </BrowserRouter>
         </div>
