@@ -8,6 +8,7 @@ module.exports = {
             },
             screens: {
                 1440: "1440px",
+                1920: "1920px",
             },
             borderWidth: {
                 14: "14px",

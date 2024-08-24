@@ -6,12 +6,16 @@ import ListVariant from "./pages/ListVariant";
 import DeviceManager from "./pages/DeviceManager";
 import DetailsDeviceManager from "./pages/DetailsDeviceManager";
 import IntegrationMenu from "./pages/IntegrationMenu";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
     return (
-        <div>
+        <div className="">
             <BrowserRouter>
                 <Routes>
+                    <Route path="/" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route
                         path="/dashboard/details/:uuid"

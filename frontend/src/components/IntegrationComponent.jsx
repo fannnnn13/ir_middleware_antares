@@ -110,11 +110,11 @@ const IntegrationComponent = () => {
                             <thead className='bg-orange-400 text-white'>
                                 <tr className=''>
                                     <th className='w-1/6 font-semibold text-lg text-start px-7 py-8'>Nama Integrasi</th>
-                                    <th className='w-1/6 font-semibold text-lg text-start px-6'>Access Key</th>
-                                    <th className='w-1/6 font-semibold text-lg text-start'>Application Name</th>
-                                    <th className='w-1/6 font-semibold text-lg text-start'>Device Name</th>
-                                    <th className='w-1/6 font-semibold text-lg text-start'>SN Device</th>
-                                    <th className='w-1/6 font-semibold text-lg text-start'>Actions</th>
+                                    <th className='w-1/6 font-semibold text-lg text-start px-7 py-8'>Access Key</th>
+                                    <th className='w-1/6 font-semibold text-lg text-start px-7 py-8'>Application Name</th>
+                                    <th className='w-1/6 font-semibold text-lg text-start px-7 py-8'>Device Name</th>
+                                    <th className='w-1/6 font-semibold text-lg text-start px-7 py-8'>SN Device</th>
+                                    <th className='w-1/6 font-semibold text-lg text-start px-7 py-8'>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
