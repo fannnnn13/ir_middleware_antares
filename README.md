@@ -1,7 +1,7 @@
 # <img width="250" alt="logo antares IR" src="https://github.com/user-attachments/assets/55c01a9b-74ce-470b-a999-8759d6ee1b23">
 # Antares IR Blaster Middleware
 
-Website middleware untuk operasional CRUD Infrared Blaster, seperti penambahan data brand, varian, remote. Yang kedepannya akan terintegrasi dengan Antares Platform.
+Middleware website for Infrared Blaster CRUD operations, such as adding brand data, variants, remotes. Which in the future will be integrated with the Antares Platform.
 
 ## Local Installation
 
