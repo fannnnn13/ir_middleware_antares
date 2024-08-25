@@ -17,12 +17,11 @@ GET http://localhost:5000/users/50421e80-8a79-4920-bc7a-3eb573220865
 
 # Kalo mau ganti password isi semua data yang ada
 ###
-PATCH http://localhost:5000/users/50421e80-8a79-4920-bc7a-3eb573220865
+PATCH http://localhost:5000/users/805b45ee-27c5-413f-bf51-f56a6dcf3901
 Content-Type: application/json
 
 {
-    "password": "1234567",
-    "conf_password": "1234567"
+    "username": "johnudin13"
 }
 
 ###
@@ -33,7 +32,7 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "username": "johnjohn13",
+    "username": "johndoe13",
     "password": "131313"
 }
 

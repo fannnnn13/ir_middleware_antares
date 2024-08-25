@@ -2,8 +2,6 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import session from "express-session";
-// import Redis from "redis";
-// import RedisStore from "connect-redis";
 import db from "./config/database.js";
 import SequelizeStore from "connect-session-sequelize";
 import userRoute from "./routes/userRoute.js";
@@ -21,6 +19,8 @@ const sessionStore = SequelizeStore(session.Store);
 
 const store = new sessionStore({
     db: db,
+    checkExpirationInterval: 15 * 60 * 1000,
+    expiration: 24 * 60 * 60 * 1000,
 });
 
 // (async () => {

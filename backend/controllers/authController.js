@@ -26,10 +26,17 @@ export const Login = async (req, res) => {
             }
 
             req.session.userId = user.uuid;
-            res.status(200).json({
-                uuid: user.uuid,
-                full_name: user.full_name,
-                username: user.username,
+            req.session.save((err) => {
+                if (err) {
+                    return res
+                        .status(500)
+                        .json({ message: "Session save failed" });
+                }
+                res.status(200).json({
+                    uuid: user.uuid,
+                    full_name: user.full_name,
+                    username: user.username,
+                });
             });
         });
     } catch (error) {
