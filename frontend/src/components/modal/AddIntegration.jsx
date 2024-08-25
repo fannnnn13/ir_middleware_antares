@@ -126,7 +126,7 @@ const AddIntegrationModal = ({ isOpen, onClose, selectedDeviceId }) => {
                         value={antaresAppName}
                         onChange={(e) => setAntaresAppName(e.target.value)}
                         className="form-input mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-2 focus:border-orange-500 text-sm"
-                        placeholder='Masukkan raw data 2'
+                        placeholder='Masukkan application name'
                     />
                 </div>
                 <div className="mb-4">
@@ -139,7 +139,7 @@ const AddIntegrationModal = ({ isOpen, onClose, selectedDeviceId }) => {
                         value={antaresDeviceName}
                         onChange={(e) => setAntaresDeviceName(e.target.value)}
                         className="form-input mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-2 focus:border-orange-500 text-sm"
-                        placeholder='Masukkan raw data 2'
+                        placeholder='Masukkan device name'
                     />
                 </div>
                 <div className="mb-4">

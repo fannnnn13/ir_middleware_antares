@@ -9,7 +9,6 @@ const IntegrationComponent = () => {
     const [search, setSearch] = useState('');
     const [integrationData, setIntegrationData] = useState({});
     const [selectedDeviceId, setSelectedDeviceId] = useState('');
-    console.log(selectedDeviceId);
 
     // Alert
     const [isAlertMessageOpen, setIsAlertMessageOpen] = useState(false);

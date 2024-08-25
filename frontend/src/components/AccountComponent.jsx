@@ -84,7 +84,7 @@ const AccountComponent = () => {
                         <input type="password" name='confPassword' id='confPassword' value={confPassword} onChange ={(e) => setConfPassword(e.target.value)}placeholder='Ulangi password' className='w-full px-3 py-2 border border-gray-300 focus:border-orange-600 rounded-md focus:outline-none focus:border-2 focus:ring-orange-600'/>
                     </div>
                     <div className='mb-8 field'>
-                        <button type='submit' className='text-white bg-orange-500 rounded-md text-lg font-medium w-full py-2 text-center hover:bg-orange-700'>Simpan</button>
+                        <button type='submit' className='text-white bg-orange-500 rounded-md text-lg font-medium w-full py-2 text-center hover:bg-orange-700'>Update Akun</button>
                     </div>
                     </form>
                 </div>

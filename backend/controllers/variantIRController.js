@@ -2,22 +2,6 @@ import { Op } from "sequelize";
 import VariantIR from "../models/variantIRModel.js";
 import Brands from "../models/brandModel.js";
 
-// export const getVariants = async (req, res) => {
-//     try {
-//         const response = await VariantIR.findAll({
-//             include: [
-//                 {
-//                     model: Brands,
-//                     attributes: ["uuid", "brand_name"],
-//                 },
-//             ],
-//         });
-//         res.status(200).json(response);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// };
-
 export const getVariants = async (req, res) => {
     try {
         const { brand_id } = req.query;
@@ -88,25 +72,6 @@ export const createVariant = async (req, res) => {
 };
 
 export const updateVariant = async (req, res) => {
-    // try {
-    //     const variant = await VariantIR.findOne({
-    //         where: {
-    //             uuid: req.params.uuid,
-    //         },
-    //     });
-
-    //     if (!variant)
-    //         return res.status(404).json({ message: "Variant not found" });
-
-    //     await VariantIR.update(req.body, {
-    //         where: {
-    //             uuid: req.params.uuid,
-    //         },
-    //     });
-    //     res.status(200).json({ message: "Variant updated successfully" });
-    // } catch (error) {
-    //     res.status(500).json({ message: error.message });
-    // }
     try {
         const { uuid } = req.params;
         const { brand_id, variant_name } = req.body;

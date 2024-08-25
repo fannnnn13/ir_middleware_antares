@@ -32,33 +32,6 @@ export const getIRList = async (req, res) => {
     }
 };
 
-// export const getIRListByDeviceId = async (req, res) => {
-//     try {
-//         const response = await ListIR.findOne({
-//             where: {
-//                 uuid: req.params.Brands.id,
-//             },
-//             include: [
-//                 {
-//                     model: Brands,
-//                     attributes: ["uuid", "brand_name"],
-//                 },
-//                 {
-//                     model: VariantIR,
-//                     attributes: ["uuid", "variant_name"],
-//                 },
-//                 {
-//                     model: Remote,
-//                     attributes: ["uuid", "device_name"],
-//                 },
-//             ],
-//         });
-//         res.status(200).json(response);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// };
-
 export const getIRListByDeviceId = async (req, res) => {
     try {
         // Cari data IR List yang berhubungan dengan Remote berdasarkan uuid dari model Remote

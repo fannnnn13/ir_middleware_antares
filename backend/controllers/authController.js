@@ -17,26 +17,23 @@ export const Login = async (req, res) => {
             return res.status(400).json({ message: "Wrong password" });
         }
 
-        // Pastikan sesi tidak terganti
-        req.session.regenerate((err) => {
-            if (err) {
-                return res
-                    .status(500)
-                    .json({ message: "Session regeneration failed" });
-            }
+        // Check if a session already exists
+        if (req.session.userId) {
+            return res.status(200).json({ message: "User already logged in." });
+        }
 
-            req.session.userId = user.uuid;
-            req.session.save((err) => {
-                if (err) {
-                    return res
-                        .status(500)
-                        .json({ message: "Session save failed" });
-                }
-                res.status(200).json({
-                    uuid: user.uuid,
-                    full_name: user.full_name,
-                    username: user.username,
-                });
+        // Store user details in session if no existing session
+        req.session.userId = user.uuid;
+
+        // Save session data
+        req.session.save((err) => {
+            if (err) {
+                return res.status(500).json({ message: "Session save failed" });
+            }
+            res.status(200).json({
+                uuid: user.uuid,
+                full_name: user.full_name,
+                username: user.username,
             });
         });
     } catch (error) {

@@ -69,25 +69,6 @@ export const createIntegration = async (req, res) => {
 };
 
 export const updateIntegration = async (req, res) => {
-    // try {
-    //     const integration = await Integration.findOne({
-    //         where: {
-    //             uuid: req.params.uuid,
-    //         },
-    //     });
-
-    //     if (!integration)
-    //         return res.status(404).json({ message: "Integration not found" });
-
-    //     await Integration.update(req.body, {
-    //         where: {
-    //             uuid: req.params.uuid,
-    //         },
-    //     });
-    //     res.status(200).json({ message: "Integration updated successfully" });
-    // } catch (error) {
-    //     res.status(500).json({ message: error.message });
-    // }
     try {
         const { uuid } = req.params;
         const { integration_name, device_id } = req.body;

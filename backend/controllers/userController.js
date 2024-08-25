@@ -59,52 +59,6 @@ export const createUser = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-    // try {
-    //     const user = await Users.findOne({
-    //         where: {
-    //             uuid: req.params.uuid,
-    //         },
-    //     });
-
-    //     if (!user) return res.status(404).json({ message: "User not found" });
-
-    //     const { full_name, username, password, conf_password } = req.body;
-
-    //     let hashPassword = user.password;
-
-    //     if (password) {
-    //         if (password !== conf_password) {
-    //             return res
-    //                 .status(400)
-    //                 .json({ message: "Password does not match" });
-    //         }
-
-    //         try {
-    //             const salt = await bcrypt.genSalt(10);
-    //             hashPassword = await bcrypt.hash(password, salt);
-    //         } catch (error) {
-    //             return res
-    //                 .status(500)
-    //                 .json({ message: "Error hashing password" });
-    //         }
-    //     }
-
-    //     await Users.update(
-    //         {
-    //             full_name: full_name || user.full_name,
-    //             username: username || user.username,
-    //             password: hashPassword,
-    //         },
-    //         {
-    //             where: {
-    //                 id: user.id,
-    //             },
-    //         }
-    //     );
-
-    //     return res.status(200).json({ message: "User updated successfully" });
-    // } catch (error) {
-    //     return res.status(500).json({ message: error.message });
     try {
         const { uuid } = req.params;
         const { full_name, username, password, conf_password } = req.body;
@@ -150,12 +104,10 @@ export const updateUser = async (req, res) => {
                     user.password
                 );
                 if (isSamePassword) {
-                    return res
-                        .status(400)
-                        .json({
-                            message:
-                                "New password must be different from the old password",
-                        });
+                    return res.status(400).json({
+                        message:
+                            "New password must be different from the old password",
+                    });
                 }
 
                 try {
@@ -167,12 +119,10 @@ export const updateUser = async (req, res) => {
                         .json({ message: "Error hashing password" });
                 }
             } else if (password || conf_password) {
-                return res
-                    .status(400)
-                    .json({
-                        message:
-                            "Both password and confirmation password must be provided",
-                    });
+                return res.status(400).json({
+                    message:
+                        "Both password and confirmation password must be provided",
+                });
             }
         }
 
