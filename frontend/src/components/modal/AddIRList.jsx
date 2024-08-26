@@ -127,7 +127,7 @@ const AddIRListModal = ({ isOpen, onClose, selectedDeviceId, selectedBrandId, se
     return (
         <>
         <Modal isOpen={isOpen} onClose={onClose}>
-        <h2 className="text-2xl font-bold p-4">Tambah IR List</h2>
+        <h2 className="text-2xl font-bold p-4">Tambah Varian</h2>
             <form onSubmit={handleSubmit} className="p-4">
                 <div className="mb-4">
                     <label htmlFor="device" className="block text-gray-700 text-sm font-bold mb-2">
