@@ -114,8 +114,6 @@ const DetailsDeviceManagerComponent = () => {
     };
 
     const deleteIrList = async (irlistuuid) => {
-        console.log(irlistuuid);
-
         try {
             await axios.delete(`http://localhost:5000/irlist/${irlistuuid}`);
             setMessage('Sukses dihapus');

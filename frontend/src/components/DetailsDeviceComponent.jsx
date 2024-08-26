@@ -43,12 +43,30 @@ const DetailsDeviceComponent = () => {
             console.error("Error fetching IR list:", error);
             setIrlists([]);
         }
-    }, [uuid]); // uuid as dependency
+    }, [uuid]); 
 
     useEffect(() => {
         getRemotesById();
         getIrList();
-    }, [getRemotesById, getIrList]); // Adding the memoized functions as dependencies
+    }, [getRemotesById, getIrList]); 
+
+    const sendRawIR = async (serialNumber, rawData1, rawData2) => {
+        try {
+            const response = await axios.post('http://vm.iote.my.id:7470/ir/send-command', {
+                serial_number: serialNumber,
+                pesan1: rawData1,
+                pesan2: rawData2
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            console.log('Response:', response.data);
+        } catch (error) {
+            console.error('Error sending raw IR:', error);
+        }
+    }
 
     return (
         <div className="container">
@@ -105,7 +123,7 @@ const DetailsDeviceComponent = () => {
                                     <h3 className='variant text-md -mt-1 mb-1 font-semibold'>{irlist.variant_ir?.variant_name}</h3>
                                     <p className='merk text-xs'>{irlist.brand?.brand_name}</p>
                                 </div>
-                                <button className='grid justify-items-end'>
+                                <button className='grid justify-items-end' onClick={() => sendRawIR(serialNumber, irlist.variant_ir?.raw_data1, irlist.variant_ir?.raw_data2)}>
                                     <img src={Power} alt="Button Power" className='w-9'/>
                                 </button>
                             </div>

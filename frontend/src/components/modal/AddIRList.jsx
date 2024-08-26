@@ -69,7 +69,7 @@ const AddIRListModal = ({ isOpen, onClose, selectedDeviceId, selectedBrandId, se
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:5000/irlist', {
-                device_id: selectedDeviceId,
+                device_id: deviceId,
                 brand_id: brandId,
                 variant_id: variantId
             });
@@ -106,10 +106,28 @@ const AddIRListModal = ({ isOpen, onClose, selectedDeviceId, selectedBrandId, se
         setVariantId(selectedVariantId || '');
     }, [selectedDeviceId, selectedBrandId, selectedVariantId]);
 
+    const sendRawIR = async (serialNumber, rawData1, rawData2) => {
+        try {
+            const response = await axios.post('http://vm.iote.my.id:7470/ir/send-command', {
+                serial_number: serialNumber,
+                pesan1: rawData1,
+                pesan2: rawData2
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            console.log('Response:', response.data);
+        } catch (error) {
+            console.error('Error sending raw IR:', error);
+        }
+    }
+
     return (
         <>
         <Modal isOpen={isOpen} onClose={onClose}>
-        <h2 className="text-2xl font-bold p-4">Tambah Varian</h2>
+        <h2 className="text-2xl font-bold p-4">Tambah IR List</h2>
             <form onSubmit={handleSubmit} className="p-4">
                 <div className="mb-4">
                     <label htmlFor="device" className="block text-gray-700 text-sm font-bold mb-2">
@@ -168,11 +186,11 @@ const AddIRListModal = ({ isOpen, onClose, selectedDeviceId, selectedBrandId, se
                         <p className='text-xs text-red-500 font-light italic'>Info : Jika perangkat tidak merespon ganti varian infrared untuk melakukan validasi.</p>
                     </div>
                     <div className="container basis-20">
-                        <button className='bg-orange-600 p-2 rounded-full hover:bg-orange-800 mt-2'>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" className="bi bi-power text-white" viewBox="0 0 16 16">
-                            <path d="M7.5 1v7h1V1z"/>
-                            <path d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812"/>
-                        </svg>
+                        <button className='bg-orange-600 p-2 rounded-full hover:bg-orange-800 mt-2' onClick={() =>sendRawIR(deviceId.serial_number, variantId.raw_data1, variantId.raw_data2)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" className="bi bi-power text-white" viewBox="0 0 16 16">
+                                <path d="M7.5 1v7h1V1z"/>
+                                <path d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812"/>
+                            </svg>
                         </button>
                     </div>
                 </div>
